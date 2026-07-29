@@ -20,7 +20,17 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "paths": {
+      "/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@interfaces": ["./src/shared/interfaces"],
+      "@interceptors/*": ["./src/shared/interceptors/*"],
+      "@services/*": ["./src/shared/services/*"],
+      "@constants/*": ["./src/shared/constants/*"],
+    }
   },
   "include": ["src"]
 }
