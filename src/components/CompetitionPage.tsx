@@ -99,7 +99,7 @@ function CompetitionPage() {
   }
 
   return (
-    <div style={{ maxWidth: 500, margin: "40px auto" }}>
+    <div className="pf-container">
       <h2>Competition Registration</h2>
 
       <form onSubmit={handleSubmit}>
