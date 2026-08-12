@@ -65,8 +65,8 @@ function LoginPage() {
     try {
       const response = await verifyOtp({ email, otp });
       localStorage.setItem("accessToken", response.accessToken);
-      navigate("/register");
-    } catch (err) {
+      navigate("/competition");
+    } catch {
       setError("Invalid OTP. Please try again.");
     } finally {
       setLoading(false);
