@@ -1,0 +1,30 @@
+// ==========================================================================
+// PF · Functions
+// ==========================================================================
+// pf-rem() converts a px value into a CSS calc() expression that scales
+// with the live --pf-font-size-ratio custom property (set in theme/_theme.scss,
+// where it's derived from --pf-font-size-base: 16px on desktop, 14px on mobile).
+//
+// Unlike a static Sass px->rem division, this stays responsive at runtime
+// because it resolves in the browser via calc(), not at compile time.
+//
+//   pf-rem(24)     => calc(24 * var(--pf-font-size-ratio, 1) * 1px)
+//   pf-rem(24px)   => calc(24 * var(--pf-font-size-ratio, 1) * 1px)
+// ==========================================================================
+
+@use 'sass:math';
+@use 'sass:meta';
+
+/// Strips the unit from a number, e.g. 24px -> 24
+@function pf-strip-unit($value) {
+  @if meta.type-of($value) == 'number' and not math.is-unitless($value) {
+    @return math.div($value, ($value * 0 + 1));
+  }
+  @return $value;
+}
+
+/// Convert a px value to a CSS calc() expression scaled by --pf-font-size-ratio
+@function pf-rem($px) {
+  $value: pf-strip-unit($px);
+  @return calc(#{$value} * var(--pf-font-size-ratio, 1) * 1px);
+}

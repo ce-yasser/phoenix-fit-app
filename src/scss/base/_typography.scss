@@ -1,0 +1,166 @@
+// ==========================================================================
+// PF · Typography
+// Type scale is expressed in pf-rem() so it tracks --pf-font-size-ratio
+// (16px desktop / 14px mobile, set in theme/_theme.scss).
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+body {
+  font-size: var(--pf-font-size-base);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--pf-color-text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--pf-font-family-heading);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--pf-color-text);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: pf-rem(48);
+
+  @include pf-breakpoint-down(md) {
+    font-size: pf-rem(34);
+  }
+}
+
+h2 {
+  font-size: pf-rem(36);
+
+  @include pf-breakpoint-down(md) {
+    font-size: pf-rem(28);
+  }
+}
+
+h3 {
+  font-size: pf-rem(28);
+
+  @include pf-breakpoint-down(md) {
+    font-size: pf-rem(22);
+  }
+}
+
+h4 {
+  font-size: pf-rem(22);
+
+  @include pf-breakpoint-down(md) {
+    font-size: pf-rem(19);
+  }
+}
+
+h5 {
+  font-size: pf-rem(18);
+}
+
+h6 {
+  font-size: pf-rem(16);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+p {
+  font-size: pf-rem(16);
+  color: var(--pf-color-text);
+
+  + p {
+    margin-top: pf-rem(16);
+  }
+}
+
+.pf-text-lead {
+  font-size: pf-rem(20);
+  font-weight: 400;
+  color: var(--pf-color-text-muted);
+  line-height: 1.6;
+}
+
+.pf-text-small {
+  font-size: pf-rem(14);
+}
+
+.pf-text-muted {
+  color: var(--pf-color-text-muted);
+}
+
+.pf-text-primary {
+  color: var(--pf-color-primary);
+}
+
+.pf-text-secondary {
+  color: var(--pf-color-secondary);
+}
+
+.pf-text-accent {
+  color: var(--pf-color-accent);
+}
+
+.pf-eyebrow {
+  display: inline-block;
+  font-size: pf-rem(13);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pf-color-primary);
+  margin-bottom: pf-rem(8);
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+em,
+i {
+  font-style: italic;
+}
+
+small {
+  font-size: pf-rem(13);
+}
+
+blockquote {
+  border-left: 3px solid var(--pf-color-primary);
+  padding-left: pf-rem(16);
+  color: var(--pf-color-text-muted);
+  font-style: italic;
+}
+
+code,
+pre {
+  font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+  font-size: pf-rem(14);
+  background-color: var(--pf-color-surface-alt);
+  border-radius: var(--pf-radius-sm);
+}
+
+code {
+  padding: 0.15em 0.4em;
+}
+
+pre {
+  padding: pf-rem(16);
+  overflow-x: auto;
+}
+
+a.pf-link {
+  color: var(--pf-color-primary);
+  text-decoration: none;
+  transition: color var(--pf-transition-base);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--pf-color-primary-hover);
+    text-decoration: underline;
+  }
+}

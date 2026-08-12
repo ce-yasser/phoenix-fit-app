@@ -109,6 +109,7 @@ function CompetitionPage() {
             id="name"
             type="text"
             name="name"
+            placeholder="Enter your full name"
             value={formData.name}
             onChange={handleChange}
             required

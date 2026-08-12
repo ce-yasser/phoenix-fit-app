@@ -1,0 +1,83 @@
+// ==========================================================================
+// PF · Theme
+// CSS custom properties, so they can be read/overridden at runtime (and by
+// pf-rem()'s calc() expression, which reads --pf-font-size-ratio directly).
+// Colors are pulled from the Phoenix Fit logo: fire-orange phoenix on a
+// near-black brushed-metal background.
+// ==========================================================================
+
+@use '../abstracts' as *;
+@use 'sass:map';
+
+:root {
+  // ------------------------------------------------------------------
+  // Color · Primary (phoenix flame orange)
+  // ------------------------------------------------------------------
+  --pf-color-primary: #f2790a;
+  --pf-color-primary-hover: #d9660a;
+  --pf-color-primary-rgb: 242, 121, 10;
+
+  // ------------------------------------------------------------------
+  // Color · Secondary (deep ember red-orange, from the wing shadows)
+  // ------------------------------------------------------------------
+  --pf-color-secondary: #c1440e;
+  --pf-color-secondary-hover: #a2380c;
+  --pf-color-secondary-rgb: 193, 68, 14;
+
+  // ------------------------------------------------------------------
+  // Color · Accent (golden flame highlight, used sparingly)
+  // ------------------------------------------------------------------
+  --pf-color-accent: #fbbf24;
+  --pf-color-accent-hover: #e4a915;
+
+  // ------------------------------------------------------------------
+  // Color · Text
+  // ------------------------------------------------------------------
+  --pf-color-text: #f5f1ea;
+  --pf-color-text-muted: #b3ada3;
+  --pf-color-text-inverse: #17120d;
+
+  // ------------------------------------------------------------------
+  // Color · Surface (dark, brushed-metal background from the logo plate)
+  // ------------------------------------------------------------------
+  --pf-color-surface: #121212;
+  --pf-color-surface-alt: #1a1a1a;
+  --pf-color-surface-raised: #221f1c;
+  --pf-color-border: rgba(245, 241, 234, 0.1);
+
+  // ------------------------------------------------------------------
+  // Feedback colors
+  // ------------------------------------------------------------------
+  --pf-color-success: #22c55e;
+  --pf-color-danger: #ef4444;
+  --pf-color-warning: var(--pf-color-accent);
+
+  // ------------------------------------------------------------------
+  // Typography
+  // ------------------------------------------------------------------
+  --pf-font-family-base: 'Montserrat', 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+  --pf-font-family-heading: 'Montserrat', 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+
+  // Base font size: 16px desktop, scaled to 14px on mobile below.
+  --pf-font-size-base: 16px;
+  // Live ratio used by pf-rem()'s calc() — unitless, e.g. 14px / 16px = 0.875
+  --pf-font-size-ratio: calc(var(--pf-font-size-base) / 16px);
+
+  // ------------------------------------------------------------------
+  // Misc tokens
+  // ------------------------------------------------------------------
+  --pf-radius-sm: 4px;
+  --pf-radius-md: 8px;
+  --pf-radius-lg: 16px;
+  --pf-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --pf-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --pf-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --pf-transition-base: 0.2s ease;
+}
+
+// Mobile font-size override: 14px base below the `md` breakpoint.
+@include pf-breakpoint-down(md) {
+  :root {
+    --pf-font-size-base: 14px;
+  }
+}

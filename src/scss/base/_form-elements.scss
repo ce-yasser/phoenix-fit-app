@@ -1,0 +1,379 @@
+// ==========================================================================
+// PF · Native form elements (no classes required)
+// Styles the bare tags — input, textarea, select, button — so a plain,
+// unstyled <form> already matches the theme. Pairs with, but does not
+// require, the class-based variants in components/_buttons.scss and
+// components/_forms.scss.
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+// --------------------------------------------------------------------
+// Shared text-field skin
+// Matches every text-like input (anything that isn't checkbox/radio/
+// range/file/color/submit/button/reset/image/hidden) + textarea + select.
+// --------------------------------------------------------------------
+
+$pf-plain-field-selector:
+  'input:where(:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]):not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="image"]):not([type="hidden"]))';
+
+#{$pf-plain-field-selector},
+textarea,
+select {
+  display: block;
+  width: 100%;
+  appearance: none;
+  background-color: var(--pf-color-surface-alt);
+  border: 1px solid var(--pf-color-border);
+  border-radius: var(--pf-radius-md);
+  padding: pf-rem(12) pf-rem(14);
+  margin-bottom: pf-rem(16);
+  font-family: var(--pf-font-family-base);
+  font-size: pf-rem(15);
+  line-height: 1.4;
+  color: var(--pf-color-text);
+  transition:
+    border-color var(--pf-transition-base),
+    box-shadow var(--pf-transition-base),
+    background-color var(--pf-transition-base);
+
+  &::placeholder {
+    color: var(--pf-color-text-muted);
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled):not(:focus) {
+    border-color: var(--pf-color-text-muted);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--pf-color-primary);
+    box-shadow: 0 0 0 3px rgba(var(--pf-color-primary-rgb), 0.25);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: var(--pf-color-surface);
+  }
+
+  &:invalid:not(:placeholder-shown) {
+    border-color: var(--pf-color-danger);
+  }
+}
+
+textarea {
+  min-height: pf-rem(120);
+  resize: vertical;
+}
+
+// Native select needs its own chevron since appearance is stripped
+select {
+  padding-right: pf-rem(40);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23b3ada3' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right pf-rem(14) center;
+  background-size: pf-rem(12) pf-rem(8);
+  cursor: pointer;
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  option {
+    background-color: var(--pf-color-surface-alt);
+    color: var(--pf-color-text);
+  }
+}
+
+// --------------------------------------------------------------------
+// Label
+// --------------------------------------------------------------------
+
+label {
+  display: inline-block;
+  margin-bottom: pf-rem(8);
+  font-size: pf-rem(14);
+  font-weight: 600;
+  color: var(--pf-color-text);
+}
+
+// --------------------------------------------------------------------
+// Buttons — native <button> and input[type=submit|button|reset]
+// Defaults to the "primary" look, since a bare <button> is most often
+// the primary action. Override in markup with components/_buttons.scss
+// classes when you need a secondary/outline/ghost style.
+// --------------------------------------------------------------------
+
+button,
+input:where([type='submit'], [type='button'], [type='reset']) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: pf-rem(8);
+  appearance: none;
+  width: auto;
+  background-color: var(--pf-color-primary);
+  border: 1px solid var(--pf-color-primary);
+  border-radius: var(--pf-radius-md);
+  padding: pf-rem(12) pf-rem(24);
+  margin-bottom: pf-rem(16);
+  font-family: var(--pf-font-family-heading);
+  font-size: pf-rem(15);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--pf-color-text-inverse);
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--pf-transition-base),
+    border-color var(--pf-transition-base),
+    box-shadow var(--pf-transition-base),
+    transform 0.1s ease;
+
+  &:hover:not(:disabled) {
+    background-color: var(--pf-color-primary-hover);
+    border-color: var(--pf-color-primary-hover);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pf-color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+  }
+}
+
+// A plain reset button reads as secondary/neutral by default
+input:where([type='reset']) {
+  background-color: transparent;
+  border-color: var(--pf-color-border);
+  color: var(--pf-color-text);
+
+  &:hover:not(:disabled) {
+    background-color: var(--pf-color-surface-raised);
+    border-color: var(--pf-color-text-muted);
+  }
+}
+
+// --------------------------------------------------------------------
+// Checkbox & Radio
+// --------------------------------------------------------------------
+
+input:where([type='checkbox'], [type='radio']) {
+  appearance: none;
+  width: pf-rem(20);
+  height: pf-rem(20);
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-right: pf-rem(8);
+  background-color: var(--pf-color-surface-alt);
+  border: 1px solid var(--pf-color-border);
+  cursor: pointer;
+  transition:
+    background-color var(--pf-transition-base),
+    border-color var(--pf-transition-base);
+
+  &:hover:not(:disabled) {
+    border-color: var(--pf-color-text-muted);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pf-color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+input:where([type='checkbox']) {
+  border-radius: pf-rem(5);
+
+  &:checked {
+    background-color: var(--pf-color-primary);
+    border-color: var(--pf-color-primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='10' viewBox='0 0 13 10' fill='none'%3E%3Cpath d='M1 5L4.5 8.5L12 1' stroke='%2317120d' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &:indeterminate {
+    background-color: var(--pf-color-primary);
+    border-color: var(--pf-color-primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='2' viewBox='0 0 10 2' fill='none'%3E%3Crect width='10' height='2' rx='1' fill='%2317120d'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+input:where([type='radio']) {
+  border-radius: 50%;
+
+  &:checked {
+    border-color: var(--pf-color-primary);
+    background-color: var(--pf-color-surface-alt);
+    background-image: radial-gradient(circle, var(--pf-color-primary) 42%, transparent 45%);
+  }
+}
+
+// --------------------------------------------------------------------
+// Range
+// --------------------------------------------------------------------
+
+input:where([type='range']) {
+  appearance: none;
+  width: 100%;
+  height: pf-rem(4);
+  margin-bottom: pf-rem(16);
+  background-color: var(--pf-color-surface-alt);
+  border-radius: pf-rem(999);
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: pf-rem(18);
+    height: pf-rem(18);
+    background-color: var(--pf-color-primary);
+    border: 2px solid var(--pf-color-text-inverse);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &::-moz-range-thumb {
+    width: pf-rem(18);
+    height: pf-rem(18);
+    background-color: var(--pf-color-primary);
+    border: 2px solid var(--pf-color-text-inverse);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &:focus-visible {
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      box-shadow: 0 0 0 4px rgba(var(--pf-color-primary-rgb), 0.25);
+    }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+// --------------------------------------------------------------------
+// File
+// --------------------------------------------------------------------
+
+input:where([type='file']) {
+  display: block;
+  width: 100%;
+  margin-bottom: pf-rem(16);
+  padding: pf-rem(10);
+  background-color: var(--pf-color-surface-alt);
+  border: 1px dashed var(--pf-color-border);
+  border-radius: var(--pf-radius-md);
+  font-size: pf-rem(13);
+  color: var(--pf-color-text-muted);
+  transition: border-color var(--pf-transition-base);
+
+  &:hover {
+    border-color: var(--pf-color-text-muted);
+  }
+
+  &::file-selector-button {
+    appearance: none;
+    margin-right: pf-rem(12);
+    padding: pf-rem(8) pf-rem(16);
+    background-color: var(--pf-color-primary);
+    border: none;
+    border-radius: var(--pf-radius-sm);
+    color: var(--pf-color-text-inverse);
+    font-family: var(--pf-font-family-heading);
+    font-size: pf-rem(13);
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--pf-transition-base);
+
+    &:hover {
+      background-color: var(--pf-color-primary-hover);
+    }
+  }
+}
+
+// --------------------------------------------------------------------
+// Color
+// --------------------------------------------------------------------
+
+input:where([type='color']) {
+  width: pf-rem(48);
+  height: pf-rem(40);
+  padding: pf-rem(4);
+  margin-bottom: pf-rem(16);
+  background-color: var(--pf-color-surface-alt);
+  border: 1px solid var(--pf-color-border);
+  border-radius: var(--pf-radius-sm);
+  cursor: pointer;
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+    border-radius: pf-rem(3);
+  }
+}
+
+// --------------------------------------------------------------------
+// Fieldset / legend
+// --------------------------------------------------------------------
+
+fieldset {
+  border: 1px solid var(--pf-color-border);
+  border-radius: var(--pf-radius-md);
+  padding: pf-rem(20);
+  margin-bottom: pf-rem(16);
+}
+
+legend {
+  padding: 0 pf-rem(8);
+  font-family: var(--pf-font-family-heading);
+  font-size: pf-rem(15);
+  font-weight: 700;
+  color: var(--pf-color-text);
+}
+
+// --------------------------------------------------------------------
+// Misc
+// --------------------------------------------------------------------
+
+optgroup {
+  font-weight: 700;
+  color: var(--pf-color-text);
+}
+
+::selection {
+  background-color: var(--pf-color-primary);
+  color: var(--pf-color-text-inverse);
+}

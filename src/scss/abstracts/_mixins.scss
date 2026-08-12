@@ -1,0 +1,96 @@
+// ==========================================================================
+// PF · Mixins
+// ==========================================================================
+
+@use 'sass:map';
+@use 'breakpoints' as bp;
+
+/// Mobile-first: applies content at the given breakpoint and up.
+/// @include pf-breakpoint-up(md) { ... }
+@mixin pf-breakpoint-up($name) {
+  $min: map.get(bp.$pf-breakpoints, $name);
+
+  @if $min == null {
+    @warn "pf-breakpoint-up: `#{$name}` is not a valid breakpoint.";
+  }
+
+  @if $min == 0 {
+    @content;
+  } @else {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+}
+
+/// Applies content below the given breakpoint (exclusive).
+/// @include pf-breakpoint-down(md) { ... }
+@mixin pf-breakpoint-down($name) {
+  $max: map.get(bp.$pf-breakpoints, $name);
+
+  @if $max == null {
+    @warn "pf-breakpoint-down: `#{$name}` is not a valid breakpoint.";
+  } @else if $max == 0 {
+    // xs has no "down" state
+  } @else {
+    @media (max-width: ($max - 0.02)) {
+      @content;
+    }
+  }
+}
+
+/// Applies content between two breakpoints.
+/// @include pf-breakpoint-between(sm, lg) { ... }
+@mixin pf-breakpoint-between($lower, $upper) {
+  $min: map.get(bp.$pf-breakpoints, $lower);
+  $max: map.get(bp.$pf-breakpoints, $upper);
+
+  @if $min == 0 {
+    @include pf-breakpoint-down($upper) {
+      @content;
+    }
+  } @else if $max == null {
+    @include pf-breakpoint-up($lower) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $min) and (max-width: ($max - 0.02)) {
+      @content;
+    }
+  }
+}
+
+/// Applies content only at a single named breakpoint.
+/// @include pf-breakpoint-only(md) { ... }
+@mixin pf-breakpoint-only($name) {
+  $names: map.keys(bp.$pf-breakpoints);
+  $index: index($names, $name);
+  $next: null;
+
+  @if $index < length($names) {
+    $next: nth($names, $index + 1);
+  }
+
+  @if $next {
+    @include pf-breakpoint-between($name, $next) {
+      @content;
+    }
+  } @else {
+    @include pf-breakpoint-up($name) {
+      @content;
+    }
+  }
+}
+
+/// Visually hidden but accessible to screen readers.
+@mixin pf-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

@@ -1,0 +1,28 @@
+// ==========================================================================
+// PF · Breakpoints
+// Bootstrap-style breakpoint map. Mobile-first: min-width is used to scale up.
+// ==========================================================================
+
+$pf-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
+// Max container widths at each breakpoint (a little narrower than the
+// breakpoint itself, matching the Bootstrap convention).
+$pf-container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+// Grid setup
+$pf-grid-columns: 12;
+$pf-grid-gutter: 1.5rem; // total gutter between columns (0.75rem each side)
+$pf-container-padding-x: 1rem;

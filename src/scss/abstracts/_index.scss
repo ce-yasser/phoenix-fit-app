@@ -1,0 +1,8 @@
+// ==========================================================================
+// PF · Abstracts barrel
+// Nothing here outputs CSS on its own — just forwards vars/functions/mixins.
+// ==========================================================================
+
+@forward 'breakpoints';
+@forward 'functions';
+@forward 'mixins';
