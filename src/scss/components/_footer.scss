@@ -1,0 +1,63 @@
+@use '../abstracts' as *;
+
+.pf-footer {
+  border-top: 1px solid var(--pf-color-border);
+  background:
+    linear-gradient(180deg, rgba(18, 18, 18, 0.88) 0%, rgba(12, 12, 12, 0.98) 100%),
+    radial-gradient(circle at 15% 20%, rgba(var(--pf-color-primary-rgb), 0.14), transparent 48%);
+
+  &__inner {
+    min-height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: pf-rem(12);
+    padding-bottom: pf-rem(12);
+
+    @include pf-breakpoint-down(md) {
+      min-height: auto;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  &__copyright {
+    display: inline-flex;
+    align-items: center;
+    gap: pf-rem(7);
+    margin-bottom: 0;
+    color: var(--pf-color-text-muted);
+    font-size: pf-rem(14);
+
+    svg {
+      color: var(--pf-color-accent);
+    }
+  }
+
+  &__social {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: pf-rem(12);
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: pf-rem(6);
+      color: var(--pf-color-accent);
+      font-size: pf-rem(14);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color var(--pf-transition-base), border-color var(--pf-transition-base);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--pf-color-primary);
+        border-color: currentColor;
+      }
+    }
+  }
+}
