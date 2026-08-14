@@ -2,7 +2,7 @@ export interface RegisterPayload {
   email: string;
 }
 
-export interface RegisterResponse {
+export interface LoginResponse {
   message: "generated" | "duplicate";
   expiresAfter: number;
   isNewUser: boolean;

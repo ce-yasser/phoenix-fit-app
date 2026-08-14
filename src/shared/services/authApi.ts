@@ -7,9 +7,9 @@ export interface VerifyOtpResponse {
   // add more fields if your BE returns user info, e.g. role, etc.
 }
 
-export const requestOtp = async (payload: I.RegisterPayload): Promise<void> => {
-  const response = await axiosClient.post<I.RegisterResponse>(
-    Endpoints.register,
+export const requestOtp = async (payload: I.RegisterPayload): Promise<I.LoginResponse> => {
+  const response = await axiosClient.post<{data: I.LoginResponse}>(
+    Endpoints.login,
     payload,
   );
   return response.data.data;
@@ -18,7 +18,7 @@ export const requestOtp = async (payload: I.RegisterPayload): Promise<void> => {
 export const verifyOtp = async (
   payload: I.VerifyPayload,
 ): Promise<I.VerifyResponse> => {
-  const response = await axiosClient.post<I.VerifyResponse>(
+  const response = await axiosClient.post<{data: I.VerifyResponse}>(
     Endpoints.verify,
     payload,
   );
