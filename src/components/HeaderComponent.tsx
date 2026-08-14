@@ -27,7 +27,9 @@ function HeaderComponent() {
       <div className="pf-container">
         <div className="pf-header__inner">
           <div className="pf-header__brand" aria-label="Phoenix brand">
-            <img src="/logo.png" alt="Phoenix React" className="pf-header__logo" />
+            <Link to="/" className="pf-header__brand-link">
+              <img src="/logo.png" alt="Phoenix React" className="pf-header__logo" />
+            </Link>
           </div>
 
           <Link to="/login" className="pf-header__login-btn">

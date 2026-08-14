@@ -9,11 +9,13 @@ function App() {
   return (
     <BrowserRouter>
       <HeaderComponent />
+      <div id="main">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/competition" element={<CompetitionPage />} />
       </Routes>
+      </div>
       <FooterComponent />
     </BrowserRouter>
   );
