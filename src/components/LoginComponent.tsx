@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import OtpInput from 'react-otp-input';
 import { requestOtp, registerUser, verifyOtp } from "@services/authApi";
 import type { VerifyPayload, RegisterPayload } from "@interfaces";
 
@@ -9,13 +10,12 @@ const LoginComponent: React.FC = () => {
   const navigate = useNavigate();
   const [step, setStep] = useState<Step>('email');
   const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState(['', '', '', '']);
+  const [otp, setOtp] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [timeLeft, setTimeLeft] = useState(0);
   const [accessToken, setAccessToken] = useState('');
-  const otpInputRefs = useRef<(HTMLInputElement | null)[]>([null, null, null, null]);
 
   // Countdown timer
   useEffect(() => {
@@ -26,19 +26,11 @@ const LoginComponent: React.FC = () => {
     return () => clearInterval(interval);
   }, [timeLeft]);
 
-  // Format time display
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
   const requestOtpForCurrentEmail = async () => {
     const data = await requestOtp({ email });
     setTimeLeft(data.expiresAfter);
     setStep('otp');
-    setOtp(['', '', '', '']);
-    otpInputRefs.current[0]?.focus();
+    setOtp('');
   };
 
   // Step 1: Submit email
@@ -69,43 +61,13 @@ const LoginComponent: React.FC = () => {
     }
   };
 
-  // Handle OTP input change
-  const handleOtpChange = (index: number, value: string) => {
-    const newOtp = [...otp];
-
-    if (value.length > 1) {
-      // Handle paste
-      const pastedValues = value.split('').slice(0, 4 - index);
-      pastedValues.forEach((char, i) => {
-        if (index + i < 4) {
-          newOtp[index + i] = char;
-        }
-      });
-      setOtp(newOtp);
-      const nextIndex = Math.min(index + pastedValues.length, 3);
-      otpInputRefs.current[nextIndex]?.focus();
-    } else {
-      newOtp[index] = value;
-      setOtp(newOtp);
-      if (value && index < 3) {
-        otpInputRefs.current[index + 1]?.focus();
-      }
-    }
-  };
-
-  // Handle OTP backspace
-  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !otp[index] && index > 0) {
-      otpInputRefs.current[index - 1]?.focus();
-    }
-  };
-
   // Step 2: Submit OTP
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const otpString = otp.join('');
+    alert(1);
+    const otpString = otp;
 
-    if (otpString.length !== 4) {
+    if (!/^\d{4}$/.test(otpString)) {
       setError('Please enter a 4-digit OTP');
       return;
     }
@@ -185,20 +147,16 @@ const LoginComponent: React.FC = () => {
           <h2>Verify OTP</h2>
           <p>Enter the 4-digit OTP sent to {email}</p>
           <div className="otp-inputs">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                ref={(el) => {
-                  otpInputRefs.current[index] = el;
-                }}
-                type="text"
-                inputMode="numeric"
-                maxLength={1}
-                value={digit}
-                onChange={(e) => handleOtpChange(index, e.target.value)}
-                onKeyDown={(e) => handleOtpKeyDown(index, e)}
-              />
-            ))}
+            <OtpInput
+              value={otp}
+              onChange={setOtp}
+              numInputs={4}
+              renderSeparator={null}
+              inputType="tel"
+              shouldAutoFocus
+              skipDefaultStyles
+              renderInput={(props) => <input {...props} />}
+            />
           </div>
           <>
             {timeLeft > 0 ? (
@@ -206,14 +164,12 @@ const LoginComponent: React.FC = () => {
                 Resend code <strong>{timeLeft} seconds</strong>
               </p>
             ) : (
-              <button
-                type="button"
-                onClick={handleResendOtp}
-                disabled={loading}
-                className="resend-otp-btn"
-              >
-                {loading ? "Sending..." : "Resend OTP?"}
-              </button>
+              <p className="countdown">
+                Didn't get OTP?{" "}
+                <span className={loading ? "disabled" : ""} onClick={handleResendOtp}>
+                  Send again
+                </span>
+              </p>
             )}
             <button type="submit" disabled={loading}>
               {loading ? "Verifying..." : "Verify OTP"}
