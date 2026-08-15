@@ -12,6 +12,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '@pages': fileURLToPath(new URL('./src/pages', import.meta.url)),
       '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
       '@shared': fileURLToPath(new URL('./src/shared', import.meta.url)),
       '@interfaces': fileURLToPath(new URL('./src/shared/interfaces', import.meta.url)),

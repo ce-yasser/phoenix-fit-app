@@ -1,4 +1,4 @@
-export interface RegisterPayload {
+export interface RequestOtpPayload {
   email: string;
 }
 
@@ -15,4 +15,12 @@ export interface VerifyPayload {
 
 export interface VerifyResponse {
   accessToken: string;
+  isRegistered: boolean;
+}
+
+export interface RegisterPayload {
+  name: string;
+}
+export interface RegisterResponse {
+  success: boolean;
 }

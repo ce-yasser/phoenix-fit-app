@@ -25,6 +25,7 @@
     "paths": {
       "/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
       "@shared/*": ["./src/shared/*"],
       "@interfaces": ["./src/shared/interfaces"],
       "@interceptors/*": ["./src/shared/interceptors/*"],

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { requestOtp, verifyOtp } from "@services/authApi";
+import LoginComponent from "@components/LoginComponent";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [expiresAfter, setExpiresAfter] = useState<number>(0);
-  const expiryInterval = useRef(null);
+  const expiryInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const startTimer = () => {
     // Prevent creating duplicate intervals if clicked multiple times
@@ -52,7 +53,7 @@ function LoginPage() {
       setExpiresAfter(response.expiresAfter);
       setStep("otp");
       startTimer();
-    } catch (err) {
+    } catch {
       setError("Failed to send OTP. Please check your email and try again.");
     } finally {
       setLoading(false);
@@ -118,6 +119,7 @@ function LoginPage() {
       )}
 
       {error && <p style={{ color: "red" }}>{error}</p>}
+      <LoginComponent />
     </div>
   );
 }
