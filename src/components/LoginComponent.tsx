@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import { requestOtp, registerUser, verifyOtp } from "@services/authApi";
 import type { VerifyPayload, RegisterPayload } from "@interfaces";
 import LoaderComponent from "@components/LoaderComponent";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useSetShowAuth } from "@store/hooks/userHooks";
 type Step = "email" | "otp" | "register";
 
 const LoginComponent: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -17,6 +19,11 @@ const LoginComponent: React.FC = () => {
   const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
   const [accessToken, setAccessToken] = useState("");
+  const setShowAuth = useSetShowAuth();
+  const isAuthPage =
+    location.pathname.replace(/^\/+/, "").replace(/\//g, "-") === "auth";
+  const redirectTo =
+    new URLSearchParams(location.search).get("redirectTo") ?? "/";
 
   // Countdown timer
   useEffect(() => {
@@ -27,6 +34,12 @@ const LoginComponent: React.FC = () => {
     return () => clearInterval(interval);
   }, [timeLeft]);
 
+  const closeLoginForm = () => {
+    setShowAuth(false);
+    if (isAuthPage) {
+      navigate("/");
+    }
+  };
   const requestOtpForCurrentEmail = async () => {
     const data = await requestOtp({ email });
     setTimeLeft(data.expiresAfter);
@@ -82,16 +95,13 @@ const LoginComponent: React.FC = () => {
 
       if (data.isRegistered) {
         localStorage.setItem("accessToken", data.accessToken);
-        navigate("/");
+        setShowAuth(false);
+        navigate(redirectTo);
       } else {
         setStep("register");
       }
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err?.response?.data?.message
-          : "An error occurred",
-      );
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -115,7 +125,8 @@ const LoginComponent: React.FC = () => {
 
       if (data.success) {
         localStorage.setItem("accessToken", accessToken);
-        navigate("/");
+        setShowAuth(false);
+        navigate(redirectTo);
       } else {
         setError("Registration failed");
       }
@@ -127,11 +138,13 @@ const LoginComponent: React.FC = () => {
   };
 
   return (
-    <div className={`pf-login pf-login--${step}`}>
+    <div
+      className={`pf-login pf-login--${step} ${isAuthPage ? "pf-login--auth" : ""}`}
+    >
       <div className="pf-login__dialog">
         <div className="pf-login__header">
           <img src="/logo.png" alt="Phoenix Fit" className="pf-login__img" />
-          <div className="pf-login__close">
+          <div onClick={closeLoginForm} className="pf-login__close">
             <IoIosCloseCircleOutline />
           </div>
         </div>

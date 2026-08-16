@@ -10,10 +10,13 @@
   height: 100%;
   width: 100%;
   z-index: 9999;
-  background-color: var(--pf-color-surface);
+  background-color: rgba(var(--pf-color-surface-rgb), 0.7);
+
+  &--auth {
+    background-color: var(--pf-color-surface);
+  }
 
   @include pf-breakpoint-up(md) {
-    min-height: calc(100vh - 200px);
     padding: 24px;
   }
 
@@ -29,7 +32,7 @@
     padding: 44px 24px 34px;
 
 
-    .pf-login--otp & {
+    .pf-login--otp:not(.pf-login--auth) & {
       width: 100%;
       min-height: 0;
 
@@ -39,13 +42,16 @@
     }
 
     @include pf-breakpoint-up(md) {
-      background: var(--pf-color-surface-alt);
-      border: 1px solid var(--pf-color-border);
-      box-shadow: var(--pf-shadow-lg);
-      height: auto;
-      border-radius: pf-rem(14);
+      .pf-login:not(.pf-login--auth) & {
+        background: var(--pf-color-surface-alt);
+        border: 1px solid var(--pf-color-border);
+        box-shadow: var(--pf-shadow-lg);
+        flex-direction: row;
+        height: auto;
+        border-radius: pf-rem(14);
+      }
+
       padding: 0;
-      flex-direction: row;
     }
   }
 
@@ -64,14 +70,17 @@
 
     @include pf-breakpoint-up(md) {
       padding: 38px 34px;
-      display: flex;
+
+      .pf-login:not(.pf-login--auth) & {
+        display: flex;
+      }
     }
 
     .pf-login--register & {
       background:
-          linear-gradient(160deg, rgba(10, 10, 10, 0.74) 0%, rgba(10, 10, 10, 0.56) 40%, rgba(10, 10, 10, 0.72) 100%),
-            radial-gradient(circle at 12% 18%, rgba(var(--pf-color-primary-rgb), 0.2), transparent 46%),
-            url('/login/register.jpg') center / cover no-repeat;
+        linear-gradient(160deg, rgba(10, 10, 10, 0.74) 0%, rgba(10, 10, 10, 0.56) 40%, rgba(10, 10, 10, 0.72) 100%),
+        radial-gradient(circle at 12% 18%, rgba(var(--pf-color-primary-rgb), 0.2), transparent 46%),
+        url('/login/register.jpg') center / cover no-repeat;
     }
   }
 
@@ -87,7 +96,9 @@
     object-fit: contain;
 
     @include pf-breakpoint-up(md) {
-      display: none;
+      .pf-login:not(.pf-login--auth) & {
+        display: none;
+      }
     }
   }
 
@@ -129,13 +140,19 @@
       .pf-login--otp & {
         padding: 80px 24px 24px;
       }
+
+      .pf-login--auth & {
+        padding: 0;
+      }
     }
 
   }
 
   &__header {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     justify-content: space-between;
+    width: 100%;
 
     @include pf-breakpoint-up(md) {
       position: absolute;
@@ -145,9 +162,8 @@
     }
   }
 
-
   &__close {
-
+    grid-column-start: 2;
     width: pf-rem(36);
     height: pf-rem(36);
     display: flex;
@@ -156,6 +172,9 @@
     color: var(--pf-color-text-muted);
     border-radius: 50%;
     cursor: pointer;
+    padding: 0;
+    background-color: transparent;
+    border: none;
     transition: color var(--pf-transition-base), background-color var(--pf-transition-base), transform var(--pf-transition-base);
 
     svg {
@@ -186,6 +205,10 @@
       position: static;
       padding-top: 0;
       padding-bottom: 0;
+
+      .pf-login--auth & {
+        max-width: 442px;
+      }
     }
   }
 
