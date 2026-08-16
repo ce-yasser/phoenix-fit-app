@@ -5,7 +5,7 @@
     position: relative;
     overflow: hidden;
     margin-top: -72px;
-    padding: calc(72px + #{pf-rem(56)}) 0 pf-rem(48);
+    padding: calc(72px + 56px) 0 48px;
     background:
       linear-gradient(160deg, rgba(10, 10, 10, 0.74) 0%, rgba(10, 10, 10, 0.56) 40%, rgba(10, 10, 10, 0.72) 100%),
       radial-gradient(circle at 12% 18%, rgba(var(--pf-color-primary-rgb), 0.2), transparent 46%),
@@ -13,12 +13,12 @@
 
     @include pf-breakpoint-down(md) {
       margin-top: -64px;
-      padding: calc(64px + #{pf-rem(40)}) 0 pf-rem(30);
+      padding: calc(64px + 40px) 0 30px;
     }
 
     @include pf-breakpoint-up(lg) {
       margin-top: -78px;
-      padding-top: calc(78px + #{pf-rem(56)});
+      padding-top: calc(78px + 56px);
     }
   }
 
@@ -67,7 +67,7 @@
     display: inline-block;
     width: fit-content;
     margin-bottom: 0;
-    padding: pf-rem(6) pf-rem(12);
+    padding: 6px 12px;
     border: 1px solid rgba(var(--pf-color-primary-rgb), 0.45);
     border-radius: 999px;
     background: rgba(var(--pf-color-primary-rgb), 0.12);
@@ -112,7 +112,7 @@
     border: 1px solid rgba(var(--pf-color-primary-rgb), 0.4);
     border-radius: 999px;
     background: rgba(var(--pf-color-primary-rgb), 0.12);
-    padding: pf-rem(8) pf-rem(12);
+    padding: 8px 12px;
     font-weight: 600;
     font-size: pf-rem(14);
   }
@@ -135,14 +135,12 @@
     align-items: center;
     gap: pf-rem(8);
     min-height: pf-rem(46);
-    padding: 0 pf-rem(22);
+    padding: 0 22px;
     border-radius: 999px;
     border: 1px solid var(--pf-color-primary);
-    background: linear-gradient(
-      100deg,
-      rgba(var(--pf-color-primary-rgb), 0.95) 0%,
-      rgba(var(--pf-color-secondary-rgb), 0.9) 100%
-    );
+    background: linear-gradient(100deg,
+        rgba(var(--pf-color-primary-rgb), 0.95) 0%,
+        rgba(var(--pf-color-secondary-rgb), 0.9) 100%);
     font-weight: 800;
     letter-spacing: 0.02em;
     text-decoration: none;
@@ -155,11 +153,9 @@
     }
 
     &--registration {
-      background: linear-gradient(
-        100deg,
-        rgba(var(--pf-color-accent-hover), 0.95) 0%,
-        rgba(var(--pf-color-primary-rgb), 0.98) 100%
-      );
+      background: linear-gradient(100deg,
+          rgba(var(--pf-color-accent-hover), 0.95) 0%,
+          rgba(var(--pf-color-primary-rgb), 0.98) 100%);
       border-color: rgba(255, 255, 255, 0.3);
       box-shadow: 0 10px 26px rgba(var(--pf-color-primary-rgb), 0.35);
     }
@@ -190,14 +186,14 @@
   &__judges,
   &__contact,
   &__registration {
-    padding: pf-rem(52) 0;
+    padding: 52px 0;
   }
 
   &__tabs {
     display: none;
 
     @include pf-breakpoint-down(md) {
-      margin-top: pf-rem(18);
+      margin-top: 18px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: pf-rem(10);
@@ -205,14 +201,14 @@
   }
 
   &__program-grid {
-    margin-top: pf-rem(24);
+    margin-top: 24px;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: pf-rem(20);
 
     @include pf-breakpoint-down(md) {
       grid-template-columns: 1fr;
-      margin-top: pf-rem(14);
+      margin-top: 14px;
     }
   }
 
@@ -220,7 +216,7 @@
     border: 1px solid var(--pf-color-border);
     border-radius: var(--pf-radius-lg);
     background: linear-gradient(160deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-    padding: pf-rem(18);
+    padding: 18px $pf-container-padding-x;
 
     @include pf-breakpoint-down(md) {
       &.is-hidden-mobile {
@@ -230,7 +226,7 @@
   }
 
   &__program-title {
-    margin-bottom: pf-rem(14);
+    margin-bottom: 14px;
     color: var(--pf-color-accent);
   }
 
@@ -243,7 +239,7 @@
     border: 1px solid rgba(var(--pf-color-primary-rgb), 0.22);
     border-radius: var(--pf-radius-md);
     background: rgba(18, 18, 18, 0.7);
-    padding: pf-rem(14);
+    padding: 14px;
   }
 
   &__category-head {
@@ -251,7 +247,7 @@
     justify-content: space-between;
     align-items: center;
     gap: pf-rem(12);
-    margin-bottom: pf-rem(8);
+    margin-bottom: 8px;
 
     h4 {
       margin: 0;
@@ -261,30 +257,30 @@
   &__fee {
     border-radius: 999px;
     border: 1px solid rgba(var(--pf-color-primary-rgb), 0.4);
-    padding: pf-rem(4) pf-rem(10);
+    padding: 4px 10px;
     font-size: pf-rem(13);
     font-weight: 700;
     color: var(--pf-color-accent);
   }
 
   &__category-note {
-    margin-bottom: pf-rem(10);
+    margin-bottom: 10px;
     color: var(--pf-color-text-muted);
     font-size: pf-rem(14);
   }
 
   &__challenge-block {
-    padding: pf-rem(10) 0;
+    padding: 10px 0;
 
     h5 {
-      margin-bottom: pf-rem(8);
+      margin-bottom: 8px;
       font-size: pf-rem(15);
       color: var(--pf-color-primary);
     }
 
     ul {
       list-style: disc;
-      padding-left: pf-rem(20);
+      padding-left: 20px;
       display: grid;
       gap: pf-rem(6);
       color: var(--pf-color-text-muted);
@@ -303,7 +299,7 @@
       background: rgba(var(--pf-color-primary-rgb), 0.1);
       color: var(--pf-color-text);
       font-weight: 700;
-      padding: pf-rem(10);
+      padding: 10px;
       margin-bottom: 0;
 
       &.is-active {
@@ -314,28 +310,27 @@
   }
 
   &__kids {
-    padding-top: pf-rem(18);
-    padding-bottom: pf-rem(52);
-    margin-top: pf-rem(-18);
+    padding-top: 18px;
+    padding-bottom: 52px;
+    margin-top: -18px;
+  }
 
-    .pf-container {
-      border: 1px solid rgba(var(--pf-color-secondary-rgb), 0.2);
-      border-radius: var(--pf-radius-lg);
-      background: linear-gradient(160deg, rgba(var(--pf-color-secondary-rgb), 0.08), rgba(255, 255, 255, 0.02));
-      padding-top: pf-rem(20);
-      padding-bottom: pf-rem(24);
+  &__kids-inner {
+    border: 1px solid rgba(var(--pf-color-secondary-rgb), 0.2);
+    border-radius: var(--pf-radius-lg);
+    background: linear-gradient(160deg, rgba(var(--pf-color-secondary-rgb), 0.08), rgba(255, 255, 255, 0.02));
+    padding: 16px $pf-container-padding-x;
 
-      @include pf-breakpoint-down(sm) {
-        border-radius: var(--pf-radius-md);
-        padding-top: pf-rem(18);
-        padding-bottom: pf-rem(18);
-      }
+    @include pf-breakpoint-down(sm) {
+      border-radius: var(--pf-radius-md);
+      padding-top: 18px;
+      padding-bottom: 18px;
     }
   }
 
   &__kids-fee {
-    margin-top: pf-rem(10);
-    margin-bottom: pf-rem(12);
+    margin-top: 10px;
+    margin-bottom: 12px;
     color: var(--pf-color-accent);
     font-weight: 700;
   }
@@ -362,7 +357,7 @@
     gap: pf-rem(8);
     border: 1px solid rgba(var(--pf-color-secondary-rgb), 0.35);
     border-radius: var(--pf-radius-md);
-    padding: pf-rem(14);
+    padding: 14px;
     background: rgba(var(--pf-color-secondary-rgb), 0.1);
     font-weight: 600;
     text-align: center;
@@ -377,8 +372,8 @@
     overflow: hidden;
     background:
       linear-gradient(160deg, rgb(10 10 10 / 27%) 0%, rgb(10 10 10 / 45%) 40%, rgb(10 10 10 / 35%) 100%),
-        radial-gradient(circle at 12% 18%, rgba(var(--pf-color-primary-rgb), 0.2), transparent 46%),
-        url(/home/intro.jpg) center / cover no-repeat;
+      radial-gradient(circle at 12% 18%, rgba(var(--pf-color-primary-rgb), 0.2), transparent 46%),
+      url(/home/intro.jpg) center / cover no-repeat;
     border-top: 1px solid rgba(var(--pf-color-primary-rgb), 0.25);
     border-bottom: 1px solid rgba(var(--pf-color-primary-rgb), 0.18);
 
@@ -391,7 +386,7 @@
     }
 
     @include pf-breakpoint-down(md) {
-      padding: pf-rem(42) 0;
+      padding: 42px 0;
     }
   }
 
@@ -424,7 +419,7 @@
     border: 1px solid rgba(var(--pf-color-accent-hover), 0.45);
     background: rgba(var(--pf-color-accent-hover), 0.18);
     color: #ffd89a;
-    padding: pf-rem(7) pf-rem(13);
+    padding: 7px 13px;
     font-size: pf-rem(13);
     font-weight: 800;
     letter-spacing: 0.07em;
@@ -454,45 +449,45 @@
     background-color: var(--pf-color-surface);
     border-top: 1px solid var(--pf-color-border);
     --mx: 0;
-      --my: 0;
-      --a-x: calc(var(--mx) * 8px);
-      --a-y: calc(var(--my) * 8px);
-      --b-x: calc(var(--mx) * -6px);
-      --b-y: calc(var(--my) * -6px);
-      --c-x: calc(var(--mx) * 4px);
-      --c-y: calc(var(--my) * 4px);
-    
-      background:
-        repeating-linear-gradient(45deg,
-          #0000 calc(-650% / 13) calc(50% / 13),
-          #100f0f 0 calc(100% / 13),
-          #0000 0 calc(150% / 13),
-          #100f0f 0 calc(200% / 13),
-          #0000 0 calc(250% / 13),
-          #100f0f 0 calc(300% / 13)) calc(0px + var(--c-x)) calc(0px + var(--c-y)),
-        repeating-linear-gradient(45deg,
-          #0000 calc(-650% / 13) calc(50% / 13),
-          #100f0f 0 calc(100% / 13),
-          #0000 0 calc(150% / 13),
-          #100f0f 0 calc(200% / 13),
-          #0000 0 calc(250% / 13),
-          #100f0f 0 calc(300% / 13)) calc(32px + var(--a-x)) calc(32px + var(--a-y)),
-        repeating-linear-gradient(-45deg,
-          #0000 calc(-650% / 13) calc(50% / 13),
-          #100f0f 0 calc(100% / 13),
-          #0000 0 calc(150% / 13),
-          #100f0f 0 calc(200% / 13),
-          #0000 0 calc(250% / 13),
-          #100f0f 0 calc(300% / 13)) calc(0px + var(--b-x)) calc(0px + var(--b-y)),
-        repeating-linear-gradient(-45deg,
-          #0000 calc(-650% / 13) calc(50% / 13),
-          #100f0f 0 calc(100% / 13),
-          #0000 0 calc(150% / 13),
-          #100f0f 0 calc(200% / 13),
-          #0000 0 calc(250% / 13),
-          #100f0f 0 calc(300% / 13)) calc(32px + var(--a-x)) calc(32px + var(--a-y)) #1e1e1e;
-    
-      background-size: 64px 64px;
+    --my: 0;
+    --a-x: calc(var(--mx) * 8px);
+    --a-y: calc(var(--my) * 8px);
+    --b-x: calc(var(--mx) * -6px);
+    --b-y: calc(var(--my) * -6px);
+    --c-x: calc(var(--mx) * 4px);
+    --c-y: calc(var(--my) * 4px);
+
+    background:
+      repeating-linear-gradient(45deg,
+        #0000 calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        #0000 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        #0000 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)) calc(0px + var(--c-x)) calc(0px + var(--c-y)),
+      repeating-linear-gradient(45deg,
+        #0000 calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        #0000 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        #0000 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)) calc(32px + var(--a-x)) calc(32px + var(--a-y)),
+      repeating-linear-gradient(-45deg,
+        #0000 calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        #0000 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        #0000 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)) calc(0px + var(--b-x)) calc(0px + var(--b-y)),
+      repeating-linear-gradient(-45deg,
+        #0000 calc(-650% / 13) calc(50% / 13),
+        #100f0f 0 calc(100% / 13),
+        #0000 0 calc(150% / 13),
+        #100f0f 0 calc(200% / 13),
+        #0000 0 calc(250% / 13),
+        #100f0f 0 calc(300% / 13)) calc(32px + var(--a-x)) calc(32px + var(--a-y)) #1e1e1e;
+
+    background-size: 64px 64px;
   }
 
   &__judges-row {
@@ -511,7 +506,7 @@
     align-items: center;
     justify-content: center;
     gap: pf-rem(12);
-    padding: pf-rem(8) 0;
+    padding: 8px 0;
     text-align: center;
 
     img {
@@ -566,7 +561,7 @@
 
     @include pf-breakpoint-down(sm) {
       gap: pf-rem(8);
-      padding: pf-rem(4) 0;
+      padding: 4px 0;
 
       img {
         width: pf-rem(132);
@@ -595,7 +590,7 @@
   &__map-wrap {
     border: 1px solid var(--pf-color-border);
     border-radius: var(--pf-radius-lg);
-    padding: pf-rem(18);
+    padding: 18px;
     background: rgba(18, 18, 18, 0.65);
     box-shadow: var(--pf-shadow-sm);
   }
@@ -607,10 +602,10 @@
   }
 
   &__contact-form {
-    margin-top: pf-rem(12);
+    margin-top: 12px;
 
     button {
-      margin-top: pf-rem(6);
+      margin-top: 6px;
     }
   }
 

@@ -16,6 +16,7 @@
   --pf-color-primary: #f2790a;
   --pf-color-primary-hover: #d9660a;
   --pf-color-primary-rgb: 242, 121, 10;
+  --pf-color-primary-disabled: rgba(var(--pf-color-primary-rgb), 0.7);
 
   // ------------------------------------------------------------------
   // Color · Secondary (deep ember red-orange, from the wing shadows)
@@ -23,6 +24,7 @@
   --pf-color-secondary: #c1440e;
   --pf-color-secondary-hover: #a2380c;
   --pf-color-secondary-rgb: 193, 68, 14;
+  --pf-color-secondary-disabled: rgba(var(--pf-color-secondary-rgb), 0.7);
 
   // ------------------------------------------------------------------
   // Color · Accent (golden flame highlight, used sparingly)

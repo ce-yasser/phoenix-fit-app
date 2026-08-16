@@ -26,13 +26,13 @@ function HeaderComponent() {
     <header className={`pf-header ${headerStateClass}`}>
       <div className="pf-container">
         <div className="pf-header__inner">
-          <div className="pf-header__brand" aria-label="Phoenix brand">
+          <div className="pf-header__brand" aria-label="Phoenix Fit brand">
             <Link to="/" className="pf-header__brand-link">
-              <img src="/logo.png" alt="Phoenix React" className="pf-header__logo" />
+              <img src="/logo.png" alt="Phoenix Fit" className="pf-header__logo" />
             </Link>
           </div>
 
-          <Link to="/login" className="pf-header__login-btn">
+          <Link to="/auth" className="pf-header__login-btn">
             <FiLogIn aria-hidden="true" />
             Login
           </Link>

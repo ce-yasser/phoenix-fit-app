@@ -169,7 +169,7 @@ function HomePage() {
           <div className="pf-home__hero-layout">
             <div className="pf-home__hero-content">
               <p className="pf-home__hero-eyebrow">September 2026 Event</p>
-              <h1>Phoenix Calisthenics Competition</h1>
+              <h1>Phoenix Fit Calisthenics Competition</h1>
               <p className="pf-home__hero-lead">
                 Join us at Antoniades Gardens, Alexandria, on 17 September 2026.{" "}
                 <br />
@@ -276,6 +276,7 @@ function HomePage() {
 
       <section className="pf-home__kids">
         <div className="pf-container">
+        <div className="pf-home__kids-inner">
           <h2 className="pf-home__section-title">
             <FiHeart aria-hidden="true" />
             Kids Competition (12+)
@@ -300,6 +301,7 @@ function HomePage() {
               100m running challenge
             </div>
           </div>
+        </div>
         </div>
       </section>
 

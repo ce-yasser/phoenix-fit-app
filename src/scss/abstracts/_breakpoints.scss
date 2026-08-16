@@ -15,14 +15,12 @@ $pf-breakpoints: (
 // Max container widths at each breakpoint (a little narrower than the
 // breakpoint itself, matching the Bootstrap convention).
 $pf-container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 960px,
+  lg: 100%,
   xl: 1140px,
   xxl: 1320px
 );
 
 // Grid setup
 $pf-grid-columns: 12;
-$pf-grid-gutter: 1.5rem; // total gutter between columns (0.75rem each side)
-$pf-container-padding-x: 1rem;
+$pf-grid-gutter: 32px; // total gutter between columns (8rem each side)
+$pf-container-padding-x: 16px;

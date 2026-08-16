@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import OtpInput from 'react-otp-input';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import OtpInput from "react-otp-input";
 import { requestOtp, registerUser, verifyOtp } from "@services/authApi";
 import type { VerifyPayload, RegisterPayload } from "@interfaces";
-
-type Step = 'email' | 'otp' | 'register';
+import LoaderComponent from "@components/LoaderComponent";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+type Step = "email" | "otp" | "register";
 
 const LoginComponent: React.FC = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState<Step>('email');
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [name, setName] = useState('');
+  const [step, setStep] = useState<Step>("register");
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState(0);
-  const [accessToken, setAccessToken] = useState('');
+  const [accessToken, setAccessToken] = useState("");
 
   // Countdown timer
   useEffect(() => {
@@ -29,20 +30,20 @@ const LoginComponent: React.FC = () => {
   const requestOtpForCurrentEmail = async () => {
     const data = await requestOtp({ email });
     setTimeLeft(data.expiresAfter);
-    setStep('otp');
-    setOtp('');
+    setStep("otp");
+    setOtp("");
   };
 
   // Step 1: Submit email
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       await requestOtpForCurrentEmail();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
@@ -50,12 +51,12 @@ const LoginComponent: React.FC = () => {
 
   const handleResendOtp = async () => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       await requestOtpForCurrentEmail();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to resend OTP');
+      setError(err instanceof Error ? err.message : "Failed to resend OTP");
     } finally {
       setLoading(false);
     }
@@ -64,16 +65,15 @@ const LoginComponent: React.FC = () => {
   // Step 2: Submit OTP
   const handleOtpSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(1);
     const otpString = otp;
 
     if (!/^\d{4}$/.test(otpString)) {
-      setError('Please enter a 4-digit OTP');
+      setError("Please enter a 4-digit OTP");
       return;
     }
 
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const payload: VerifyPayload = { email, otp: otpString };
@@ -81,13 +81,17 @@ const LoginComponent: React.FC = () => {
       setAccessToken(data.accessToken);
 
       if (data.isRegistered) {
-        localStorage.setItem('accessToken', data.accessToken);
-        navigate('/');
+        localStorage.setItem("accessToken", data.accessToken);
+        navigate("/");
       } else {
-        setStep('register');
+        setStep("register");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(
+        err instanceof Error
+          ? err?.response?.data?.message
+          : "An error occurred",
+      );
     } finally {
       setLoading(false);
     }
@@ -98,103 +102,160 @@ const LoginComponent: React.FC = () => {
     e.preventDefault();
 
     if (name.length === 0 || name.length > 32) {
-      setError('Name must be between 1 and 32 characters');
+      setError("Name must be between 1 and 32 characters");
       return;
     }
 
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const payload: RegisterPayload = { name };
       const data = await registerUser(payload, accessToken);
 
       if (data.success) {
-        localStorage.setItem('accessToken', accessToken);
-        navigate('/');
+        localStorage.setItem("accessToken", accessToken);
+        navigate("/");
       } else {
-        setError('Registration failed');
+        setError("Registration failed");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      {error && <div className="error-message">{error}</div>}
-
-      {step === "email" && (
-        <form onSubmit={handleEmailSubmit}>
-          <h2>Login</h2>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? "Sending..." : "Send OTP"}
-          </button>
-        </form>
-      )}
-
-      {step === "otp" && (
-        <form onSubmit={handleOtpSubmit}>
-          <h2>Verify OTP</h2>
-          <p>Enter the 4-digit OTP sent to {email}</p>
-          <div className="otp-inputs">
-            <OtpInput
-              value={otp}
-              onChange={setOtp}
-              numInputs={4}
-              renderSeparator={null}
-              inputType="tel"
-              shouldAutoFocus
-              skipDefaultStyles
-              renderInput={(props) => <input {...props} />}
-            />
+    <div className={`pf-login pf-login--${step}`}>
+      <div className="pf-login__dialog">
+        <div className="pf-login__header">
+          <img src="/logo.png" alt="Phoenix Fit" className="pf-login__img" />
+          <div className="pf-login__close">
+            <IoIosCloseCircleOutline />
           </div>
-          <>
-            {timeLeft > 0 ? (
-              <p className="countdown">
-                Resend code <strong>{timeLeft} seconds</strong>
-              </p>
-            ) : (
-              <p className="countdown">
-                Didn't get OTP?{" "}
-                <span className={loading ? "disabled" : ""} onClick={handleResendOtp}>
-                  Send again
-                </span>
-              </p>
-            )}
-            <button type="submit" disabled={loading}>
-              {loading ? "Verifying..." : "Verify OTP"}
-            </button>
-          </>
-        </form>
-      )}
+        </div>
+        {["email", "register"].includes(step) && (
+          <aside className="pf-login__side" aria-hidden="true">
+            <img src="/logo.png" alt="Phoenix Fit" className="pf-login__logo" />
+            <h2 className="pf-login__headline">
+              {step === "email"
+                ? "Get Ready To Compete"
+                : "Welcome to Phoenix Fit!"}
+            </h2>
+            <p className="pf-login__copy">
+              {step === "email"
+                ? "Sign in to continue your Phoenix Fit Calisthenics journey and manage your competition registration."
+                : "Complete your registration and join the action!"}
+            </p>
+          </aside>
+        )}
 
-      {step === "register" && (
-        <form onSubmit={handleRegisterSubmit}>
-          <h2>Complete Registration</h2>
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            value={name}
-            onChange={(e) => setName(e.target.value.slice(0, 32))}
-            maxLength={32}
-            required
-          />
-          <p className="char-count">{name.length}/32</p>
-          <button type="submit" disabled={loading}>
-            {loading ? "Registering..." : "Register"}
-          </button>
-        </form>
-      )}
+        <section className="pf-login__panel">
+          {error && <p className="pf-login__error">{error}</p>}
+
+          {step === "email" && (
+            <form className="pf-login__form" onSubmit={handleEmailSubmit}>
+              <h1 className="pf-login__title">Email Address</h1>
+              <p className="pf-login__text">
+                Enter your email to sign in or create a new account.
+              </p>
+
+              <label htmlFor="email" className="pf-login__label">
+                Email
+              </label>
+              <input
+                id="email"
+                className="pf-login__email"
+                type="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <button
+                className="pf-login__submit"
+                type="submit"
+                disabled={loading || !email}
+              >
+                {loading ? <LoaderComponent /> : "Continue"}
+              </button>
+            </form>
+          )}
+
+          {step === "otp" && (
+            <form className="pf-login__form" onSubmit={handleOtpSubmit}>
+              <h1 className="pf-login__title">Verify OTP</h1>
+              <p className="pf-login__text">
+                Enter the 4-digit code sent to {email}.
+              </p>
+              <OtpInput
+                value={otp}
+                onChange={setOtp}
+                numInputs={4}
+                renderSeparator={null}
+                inputType="tel"
+                shouldAutoFocus
+                skipDefaultStyles
+                containerStyle="pf-login__otp"
+                renderInput={(props) => <input {...props} />}
+              />
+
+              {timeLeft > 0 ? (
+                <p className="pf-login__countdown">
+                  Resend code in <strong>{timeLeft}s</strong>
+                </p>
+              ) : (
+                <p className="pf-login__countdown">
+                  Didn't receive OTP?{" "}
+                  <button
+                    type="button"
+                    className="pf-login__resend"
+                    disabled={loading}
+                    onClick={handleResendOtp}
+                  >
+                    Send again
+                  </button>
+                </p>
+              )}
+
+              <button
+                className="pf-login__submit"
+                type="submit"
+                disabled={loading || otp.length < 4}
+              >
+                {loading ? <LoaderComponent /> : "Verify OTP"}
+              </button>
+            </form>
+          )}
+
+          {step === "register" && (
+            <form className="pf-login__form" onSubmit={handleRegisterSubmit}>
+              <h1 className="pf-login__title">Finishing Sign Up</h1>
+
+              <input
+                id="name"
+                className="pf-login__name"
+                type="text"
+                placeholder="First name"
+                value={name}
+                onChange={(e) => setName(e.target.value.slice(0, 32))}
+                maxLength={32}
+                required
+              />
+
+              <button
+                className="pf-login__submit"
+                type="submit"
+                disabled={loading || !name.trim()}
+              >
+                {loading ? <LoaderComponent /> : "Register"}
+              </button>
+            </form>
+          )}
+        </section>
+      </div>
     </div>
   );
 };
