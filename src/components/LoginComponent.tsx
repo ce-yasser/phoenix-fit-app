@@ -9,7 +9,7 @@ type Step = "email" | "otp" | "register";
 
 const LoginComponent: React.FC = () => {
   const navigate = useNavigate();
-  const [step, setStep] = useState<Step>("register");
+  const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [name, setName] = useState("");
