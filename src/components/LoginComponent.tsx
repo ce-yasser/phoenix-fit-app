@@ -8,7 +8,6 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import {
   useSetShowAuth,
   useLogin,
-  useSetUserData,
 } from "@store/hooks/userHooks";
 import { getUserData } from "@services/userService";
 type Step = "email" | "otp" | "register";
@@ -26,7 +25,6 @@ const LoginComponent: React.FC = () => {
   const [accessToken, setAccessToken] = useState("");
   const setShowAuth = useSetShowAuth();
   const login = useLogin();
-  const setUserData = useSetUserData();
 
   const isAuthPage =
     location.pathname.replace(/^\/+/, "").replace(/\//g, "-") === "auth";
@@ -102,7 +100,7 @@ const LoginComponent: React.FC = () => {
       setAccessToken(data.accessToken);
 
       if (data.isRegistered) {
-        loginUser(data.accessToken);
+        login(data.accessToken);
         setShowAuth(false);
         navigate(redirectTo);
       } else {
@@ -132,7 +130,7 @@ const LoginComponent: React.FC = () => {
       const data = await registerUser(payload, accessToken);
 
       if (data.success) {
-        loginUser(accessToken);
+        login(accessToken);
         setShowAuth(false);
         navigate(redirectTo);
       } else {
@@ -143,12 +141,6 @@ const LoginComponent: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const loginUser = async (token: string) => {
-    login(token);
-    const data = await getUserData();
-    setUserData(data);
   };
 
   return (
