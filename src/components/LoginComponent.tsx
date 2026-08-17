@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
-import { requestOtp, registerUser, verifyOtp } from "@services/authApi";
+import { requestOtp, registerUser, verifyOtp } from "@services/userService";
 import type { VerifyPayload, RegisterPayload } from "@interfaces";
 import LoaderComponent from "@components/LoaderComponent";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useSetShowAuth } from "@store/hooks/userHooks";
+import {
+  useSetShowAuth,
+  useLogin,
+  useSetUserData,
+} from "@store/hooks/userHooks";
+import { getUserData } from "@services/userService";
 type Step = "email" | "otp" | "register";
 
 const LoginComponent: React.FC = () => {
@@ -20,6 +25,9 @@ const LoginComponent: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [accessToken, setAccessToken] = useState("");
   const setShowAuth = useSetShowAuth();
+  const login = useLogin();
+  const setUserData = useSetUserData();
+
   const isAuthPage =
     location.pathname.replace(/^\/+/, "").replace(/\//g, "-") === "auth";
   const redirectTo =
@@ -37,14 +45,14 @@ const LoginComponent: React.FC = () => {
   const closeLoginForm = () => {
     setShowAuth(false);
     if (isAuthPage) {
-      navigate("/");
+      navigate("/", { replace: true });
     }
   };
   const requestOtpForCurrentEmail = async () => {
     const data = await requestOtp({ email });
     setTimeLeft(data.expiresAfter);
+    setOtp(data.otp ?? "");
     setStep("otp");
-    setOtp("");
   };
 
   // Step 1: Submit email
@@ -94,7 +102,7 @@ const LoginComponent: React.FC = () => {
       setAccessToken(data.accessToken);
 
       if (data.isRegistered) {
-        localStorage.setItem("accessToken", data.accessToken);
+        loginUser(data.accessToken);
         setShowAuth(false);
         navigate(redirectTo);
       } else {
@@ -124,7 +132,7 @@ const LoginComponent: React.FC = () => {
       const data = await registerUser(payload, accessToken);
 
       if (data.success) {
-        localStorage.setItem("accessToken", accessToken);
+        loginUser(accessToken);
         setShowAuth(false);
         navigate(redirectTo);
       } else {
@@ -135,6 +143,12 @@ const LoginComponent: React.FC = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const loginUser = async (token: string) => {
+    login(token);
+    const data = await getUserData();
+    setUserData(data);
   };
 
   return (

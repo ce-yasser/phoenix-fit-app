@@ -2,7 +2,6 @@ import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { submitRegistration } from "@services/competitionApi";
 import type { August2026DtoInterface } from "@interfaces";
-import { useNavigate } from "react-router-dom";
 
 const initialFormData: August2026DtoInterface = {
   gender: "male",
@@ -14,11 +13,10 @@ const initialFormData: August2026DtoInterface = {
 };
 
 function CompetitionPage() {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState<August2026DtoInterface>(initialFormData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [success] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;

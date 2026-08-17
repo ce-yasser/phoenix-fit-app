@@ -1,14 +1,8 @@
-import { useEffect } from "react";
-import { useSetShowAuth } from "@store/hooks/userHooks";
+import LoginComponent from "@components/LoginComponent";
 
-function AuthPage() {
-  const setShowAuth = useSetShowAuth();
+const AuthPage: React.FC = () => {
 
-  useEffect(() => {
-    setShowAuth(true);
-  }, [setShowAuth]);
-
-  return null;
+  return <LoginComponent />;
 }
 
 export default AuthPage;

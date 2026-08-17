@@ -6,6 +6,7 @@ export interface LoginResponse {
   message: "generated" | "duplicate";
   expiresAfter: number;
   isNewUser: boolean;
+  otp?: string;
 }
 
 export interface VerifyPayload {
