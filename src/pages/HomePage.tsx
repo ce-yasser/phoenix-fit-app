@@ -16,8 +16,6 @@ import { MdOutlineBoy, MdOutlineGirl } from "react-icons/md";
 import { PiBarbellLight } from "react-icons/pi";
 import type { ProgramCategory } from "@interfaces";
 import { useFetchPrograms, useProgramsData, useProgramsLoading } from "@store/hooks/programsHooks";
-import { fetchPrograms } from "@store/slices/programsSlice";
-import { useDispatch } from "react-redux";
 
 type Division = "men" | "women";
 
@@ -85,13 +83,11 @@ function HomePage() {
   const [activeDivision, setActiveDivision] = useState<Division>("men");
   const programs = useProgramsData();
   const loading = useProgramsLoading();
-  // const dispatch = useDispatch();
   const fetchPrograms = useFetchPrograms();
 
   useEffect(() => {
     if (!programs &&!loading) {
       fetchPrograms();
-      // dispatch(fetchPrograms());
     }
   }, [loading]);
 
