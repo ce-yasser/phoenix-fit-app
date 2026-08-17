@@ -107,6 +107,7 @@ label {
 // --------------------------------------------------------------------
 
 button,
+.pf-btn,
 input:where([type='submit'], [type='button'], [type='reset']) {
   display: inline-flex;
   align-items: center;
@@ -118,7 +119,6 @@ input:where([type='submit'], [type='button'], [type='reset']) {
   border: 1px solid var(--pf-color-primary);
   border-radius: var(--pf-radius-md);
   padding: pf-rem(12) pf-rem(24);
-  margin-bottom: pf-rem(16);
   font-family: var(--pf-font-family-heading);
   font-size: pf-rem(15);
   font-weight: 700;

@@ -14,6 +14,7 @@ import {
   useSetUserData,
 } from "@store/hooks/userHooks";
 import { getUserData } from "@services/userService";
+import NotFound from "@pages/NotFound";
 
 function AppLayout() {
   const { pathname } = useLocation();
@@ -46,6 +47,8 @@ function AppLayout() {
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/competition" element={<CompetitionPage />} />
           </Route>
+          
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <FooterComponent />

@@ -1,0 +1,164 @@
+// ==========================================================================
+// PF · 404 — "This page burned out"
+// Rising embers + a flame-flicker on the numerals. Adjust the @use path
+// below to wherever pf-scss/abstracts lives in your project.
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.pf-404 {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--pf-color-surface);
+  text-align: center;
+  padding-block: pf-rem(48);
+  flex-grow: 1;
+
+  &__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: pf-rem(700);
+    height: pf-rem(700);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(var(--pf-color-primary-rgb), 0.22) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  &__embers {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  &__ember {
+    position: absolute;
+    bottom: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--pf-color-accent) 0%, var(--pf-color-primary) 60%, transparent 100%);
+    opacity: 0;
+    animation-name: pf-ember-rise;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: pf-rem(560);
+  }
+
+  &__logo {
+    width: pf-rem(96);
+    height: auto;
+    margin-bottom: pf-rem(8);
+    opacity: 0.9;
+  }
+
+  &__code {
+    font-family: var(--pf-font-family-heading);
+    font-size: pf-rem(120);
+    line-height: 1;
+    margin: 0;
+    font-weight: 600;
+    background: linear-gradient(100deg,
+        var(--pf-color-secondary) 0%,
+        var(--pf-color-primary) 45%,
+        var(--pf-color-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: pf-flicker 3.2s ease-in-out infinite;
+
+    @include pf-breakpoint-up(md) {
+      font-size: pf-rem(180);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &__title {
+    margin-top: pf-rem(8);
+    margin-bottom: pf-rem(12);
+  }
+
+  &__subtitle {
+    color: var(--pf-color-text-muted);
+    margin-bottom: pf-rem(32);
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: pf-rem(16);
+    margin-bottom: pf-rem(24);
+  }
+
+  &__link {
+    font-size: pf-rem(14);
+    color: var(--pf-color-text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--pf-transition-base);
+
+    &:hover {
+      color: var(--pf-color-primary);
+    }
+  }
+}
+
+
+// --------------------------------------------------------------------
+// Rising embers
+// --------------------------------------------------------------------
+
+
+@keyframes pf-ember-rise {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: translate(var(--drift), -110vh) scale(1);
+    opacity: 0;
+  }
+}
+
+// --------------------------------------------------------------------
+// Content
+// --------------------------------------------------------------------
+
+
+@keyframes pf-flicker {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 18px rgba(var(--pf-color-primary-rgb), 0.45));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 32px rgba(var(--pf-color-primary-rgb), 0.7));
+  }
+}
