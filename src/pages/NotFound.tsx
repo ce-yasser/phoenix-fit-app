@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
 // Ember particle field — generated once per mount, not on every render.
-function useEmbers(count) {
+function useEmbers(count: number) {
   return useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
@@ -32,8 +32,8 @@ export default function NotFound() {
               width: `${e.size}px`,
               height: `${e.size}px`,
               animationDuration: `${e.duration}s`,
+              ["--drift" as `--${string}`]: `${e.drift}px`,
               animationDelay: `${e.delay}s`,
-              "--drift": `${e.drift}px`,
             }}
           />
         ))}

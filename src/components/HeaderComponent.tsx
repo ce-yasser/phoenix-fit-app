@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FiChevronDown, FiLogIn, FiLogOut } from "react-icons/fi";
+import { FiChevronDown, FiLogIn } from "react-icons/fi";
 import {
   useLogout,
   useSetShowAuth,

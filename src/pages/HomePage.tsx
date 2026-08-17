@@ -15,7 +15,7 @@ import { FaInstagram } from "react-icons/fa";
 import { MdOutlineBoy, MdOutlineGirl } from "react-icons/md";
 import { PiBarbellLight } from "react-icons/pi";
 import type { ProgramCategory } from "@interfaces";
-import { useProgramsData, useProgramsLoading } from "@store/hooks/programsHooks";
+import { useFetchPrograms, useProgramsData, useProgramsLoading } from "@store/hooks/programsHooks";
 import { fetchPrograms } from "@store/slices/programsSlice";
 import { useDispatch } from "react-redux";
 
@@ -37,7 +37,7 @@ function ProgramColumn({
   isHiddenOnMobile,
 }: {
   title: string;
-  categories: ProgramCategory[];
+  categories: ProgramCategory[] | undefined;
   isHiddenOnMobile: boolean;
 }) {
   if (!categories) {
@@ -85,11 +85,13 @@ function HomePage() {
   const [activeDivision, setActiveDivision] = useState<Division>("men");
   const programs = useProgramsData();
   const loading = useProgramsLoading();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const fetchPrograms = useFetchPrograms();
 
   useEffect(() => {
     if (!programs &&!loading) {
-      dispatch(fetchPrograms());
+      fetchPrograms();
+      // dispatch(fetchPrograms());
     }
   }, [loading]);
 
