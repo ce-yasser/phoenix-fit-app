@@ -1,19 +1,25 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FiLogIn, FiLogOut } from "react-icons/fi";
+import { useEffect, useRef, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FiChevronDown, FiLogIn, FiLogOut } from "react-icons/fi";
 import {
   useLogout,
   useSetShowAuth,
   useIsLoggedIn,
+  useUserData,
 } from "@store/hooks/userHooks";
 
 function HeaderComponent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const setShowAuth = useSetShowAuth();
   const logout = useLogout();
   const hasAccessToken = useIsLoggedIn();
+  const userData = useUserData();
+
   useEffect(() => {
     const updateScrollState = () => {
       setIsScrolled(window.scrollY > 10);
@@ -27,22 +33,33 @@ function HeaderComponent() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const syncAuthState = () => {
-  //     setAuthStateVersion((currentVersion) => currentVersion + 1);
-  //   };
+  useEffect(() => {
+    if (!isMenuOpen) return;
 
-  //   window.addEventListener("storage", syncAuthState);
-  //   window.addEventListener("focus", syncAuthState);
+    const handlePointerDown = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
 
-  //   return () => {
-  //     window.removeEventListener("storage", syncAuthState);
-  //     window.removeEventListener("focus", syncAuthState);
-  //   };
-  // }, []);
+    document.addEventListener("mousedown", handlePointerDown);
+
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+    };
+  }, [isMenuOpen]);
+
+  const handleMyRegistration = () => {
+    setIsMenuOpen(false);
+    navigate("/me");
+  };
+
+  const handleLogout = () => {
+    setIsMenuOpen(false);
+    logout();
+  };
 
   const headerStateClass = isHomePage && !isScrolled ? "is-transparent" : "is-scrolled";
-
 
   return (
     <header className={`pf-header ${headerStateClass}`}>
@@ -59,18 +76,74 @@ function HeaderComponent() {
           </div>
 
           {hasAccessToken ? (
-            <button onClick={logout} className="pf-header__login-btn">
-              <FiLogOut aria-hidden="true" />
-              Logout
-            </button>
+            <div className="pf-header__user-menu" ref={menuRef}>
+              <div
+                onClick={() => setIsMenuOpen((current) => !current)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setIsMenuOpen((current) => !current);
+                  }
+                }}
+                className="pf-header__user-button"
+                role="button"
+                tabIndex={0}
+              >
+                <span className="pf-header__user-name">
+                  {userData?.name || "User"}
+                </span>
+                <FiChevronDown aria-hidden="true" />
+              </div>
+
+              {isMenuOpen && (
+                <div className="pf-header__dropdown" role="menu" aria-label="User menu">
+                  <div
+                    onClick={handleMyRegistration}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        handleMyRegistration();
+                      }
+                    }}
+                    className="pf-header__dropdown-item"
+                    role="menuitem"
+                    tabIndex={0}
+                  >
+                    My Registration
+                  </div>
+                  <div
+                    onClick={handleLogout}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        handleLogout();
+                      }
+                    }}
+                    className="pf-header__dropdown-item"
+                    role="menuitem"
+                    tabIndex={0}
+                  >
+                    Logout
+                  </div>
+                </div>
+              )}
+            </div>
           ) : (
-            <button
+            <div
               onClick={() => setShowAuth(true)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setShowAuth(true);
+                }
+              }}
               className="pf-header__login-btn"
+              role="button"
+              tabIndex={0}
             >
               <FiLogIn aria-hidden="true" />
               Login
-            </button>
+            </div>
           )}
         </div>
       </div>
