@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FiAward,
@@ -14,93 +14,12 @@ import {
 import { FaInstagram } from "react-icons/fa";
 import { MdOutlineBoy, MdOutlineGirl } from "react-icons/md";
 import { PiBarbellLight } from "react-icons/pi";
+import type { ProgramCategory } from "@interfaces";
+import { useProgramsData, useProgramsLoading } from "@store/hooks/programsHooks";
+import { fetchPrograms } from "@store/slices/programsSlice";
+import { useDispatch } from "react-redux";
 
 type Division = "men" | "women";
-
-interface ProgramCategory {
-  title: string;
-  fee: number;
-  qualifier: string[];
-  final: string[];
-}
-
-const menProgram: ProgramCategory[] = [
-  {
-    title: "Intermediate",
-    fee: 600,
-    qualifier: [
-      "8 pull-ups + 16 push-ups + 24 air squats (for time)",
-      "2 rounds: 12 knee raises + 12 burpees",
-    ],
-    final: [
-      "3-minute AMRAP: 6 pull-ups, 8 dips, 10 jump squats",
-      "Hold test: max chin-over-bar hold + max hollow hold",
-    ],
-  },
-  {
-    title: "Advanced",
-    fee: 800,
-    qualifier: [
-      "5 muscle-up attempts + 20 box jump-overs",
-      "4 rounds: 10 toes-to-bar + 12 explosive push-ups",
-    ],
-    final: [
-      "Ladder: bar muscle-ups, handstand push-ups, pistol squats",
-      "Static skill combo: front lever tuck hold + handstand hold",
-    ],
-  },
-  {
-    title: "Elite",
-    fee: 800,
-    qualifier: [
-      "Complex: 3 bar muscle-ups, 6 ring dips, 9 pull-ups x 3 rounds",
-      "Sprint station: rope climb + weighted carry + burpee broad jumps",
-    ],
-    final: [
-      "Elite Final: max reps strict muscle-ups in 4 minutes",
-      "Elite Final: skill flow of planche lean, front lever, handstand walk",
-    ],
-  },
-];
-
-const womenProgram: ProgramCategory[] = [
-  {
-    title: "Intermediate",
-    fee: 600,
-    qualifier: [
-      "6 assisted/strict pull-ups + 14 push-ups + 20 squats",
-      "3 rounds: 10 knee raises + 10 burpees",
-    ],
-    final: [
-      "3-minute AMRAP: 5 pull-ups, 7 dips, 9 jump squats",
-      "Hold test: max dead hang + max hollow hold",
-    ],
-  },
-  {
-    title: "Advanced",
-    fee: 800,
-    qualifier: [
-      "3 muscle-up progressions/strict reps + 16 box jump-overs",
-      "4 rounds: 8 toes-to-bar + 10 explosive push-ups",
-    ],
-    final: [
-      "Ladder: chin-ups, dips, handstand shoulder taps, pistol squats",
-      "Static skill combo: L-sit hold + wall handstand hold",
-    ],
-  },
-  {
-    title: "Elite",
-    fee: 800,
-    qualifier: [
-      "Complex: 2-4 muscle-ups, 8 ring dips, 10 pull-ups x 3 rounds",
-      "Sprint station: rope climb variation + shuttle runs + burpees",
-    ],
-    final: [
-      "Elite Final: max reps strict chest-to-bar pull-ups in 4 minutes",
-      "Elite Final: skill flow of front lever progression and handstand walk",
-    ],
-  },
-];
 
 const judges = [
   { name: "Ibrahim Issa", instagram: "https://instagram.com/ibrahim_issa" },
@@ -121,6 +40,9 @@ function ProgramColumn({
   categories: ProgramCategory[];
   isHiddenOnMobile: boolean;
 }) {
+  if (!categories) {
+    return;
+  }
   return (
     <article className={`pf-home__program-column ${isHiddenOnMobile ? "is-hidden-mobile" : ""}`}>
       <h3 className="pf-home__program-title">{title}</h3>
@@ -161,6 +83,15 @@ function ProgramColumn({
 
 function HomePage() {
   const [activeDivision, setActiveDivision] = useState<Division>("men");
+  const programs = useProgramsData();
+  const loading = useProgramsLoading();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!programs &&!loading) {
+      dispatch(fetchPrograms());
+    }
+  }, [loading]);
 
   return (
     <main className="pf-home">
@@ -262,12 +193,12 @@ function HomePage() {
           <div className="pf-home__program-grid">
             <ProgramColumn
               title="Men"
-              categories={menProgram}
+              categories={programs?.men}
               isHiddenOnMobile={activeDivision !== "men"}
             />
             <ProgramColumn
               title="Women"
-              categories={womenProgram}
+              categories={programs?.women}
               isHiddenOnMobile={activeDivision !== "women"}
             />
           </div>

@@ -3,6 +3,7 @@ export const Endpoints = {
   verify: '/v1/auth/verify',
   register: '/v1/auth/register',
   profile: '/v1/profile',
+  programs: '/v1/general/programs',
   competition_august_2026: '/v1/competition/august2026',
   competition: '/v1/competition/',
   competition_by_id: (id: string | number) => `/competition/${id}`,
