@@ -27,7 +27,6 @@ select {
   border: 1px solid var(--pf-color-border);
   border-radius: var(--pf-radius-md);
   padding: pf-rem(12) pf-rem(14);
-  margin-bottom: pf-rem(16);
   font-family: var(--pf-font-family-base);
   font-size: pf-rem(15);
   line-height: 1.4;
@@ -238,7 +237,6 @@ input:where([type='range']) {
   appearance: none;
   width: 100%;
   height: pf-rem(4);
-  margin-bottom: pf-rem(16);
   background-color: var(--pf-color-surface-alt);
   border-radius: pf-rem(999);
   cursor: pointer;
@@ -288,7 +286,6 @@ input:where([type='range']) {
 input:where([type='file']) {
   display: block;
   width: 100%;
-  margin-bottom: pf-rem(16);
   padding: pf-rem(10);
   background-color: var(--pf-color-surface-alt);
   border: 1px dashed var(--pf-color-border);
@@ -329,7 +326,6 @@ input:where([type='color']) {
   width: pf-rem(48);
   height: pf-rem(40);
   padding: pf-rem(4);
-  margin-bottom: pf-rem(16);
   background-color: var(--pf-color-surface-alt);
   border: 1px solid var(--pf-color-border);
   border-radius: var(--pf-radius-sm);
@@ -353,7 +349,6 @@ fieldset {
   border: 1px solid var(--pf-color-border);
   border-radius: var(--pf-radius-md);
   padding: pf-rem(20);
-  margin-bottom: pf-rem(16);
 }
 
 legend {

@@ -55,14 +55,16 @@ function ProgramColumn({
 
             <p className="pf-home__category-note">Two-stage format: qualifier then final for successful athletes.</p>
 
-            <div className="pf-home__challenge-block">
-              <h5>{category.title} Challenge</h5>
-              <ul>
-                {category.qualifier.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
+            {category.qualifier && (
+              <div className="pf-home__challenge-block">
+                <h5>{category.title} Challenge</h5>
+                <ul>
+                  {category.qualifier.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             <div className="pf-home__challenge-block">
               <h5>{category.title} Final</h5>
@@ -108,7 +110,10 @@ function HomePage() {
 
               <div className="pf-home__event-meta">
                 <span className="pf-home__meta-item">
-                  <FiCalendar className="pf-home__meta-icon" aria-hidden="true" />
+                  <FiCalendar
+                    className="pf-home__meta-icon"
+                    aria-hidden="true"
+                  />
                   17 September 2026
                 </span>
                 <span className="pf-home__meta-item">
@@ -121,7 +126,7 @@ function HomePage() {
                 </span>
                 <span className="pf-home__meta-item">
                   <FiHeart className="pf-home__meta-icon" aria-hidden="true" />
-                  Kids competition: 12+ years
+                  Junior competition: 12+ years
                 </span>
               </div>
 
@@ -205,32 +210,24 @@ function HomePage() {
 
       <section className="pf-home__kids">
         <div className="pf-container">
-        <div className="pf-home__kids-inner">
-          <h2 className="pf-home__section-title">
-            <FiHeart aria-hidden="true" />
-            Kids Competition (12+)
-          </h2>
-          <p className="pf-home__kids-fee">
-            Registration fee: EGP 600 · Built for confidence, movement, and fun.
-          </p>
-          <div className="pf-home__kids-grid">
-            <div className="pf-home__kids-card">
-              <FiAward aria-hidden="true" />
-              10 jumping jacks
-            </div>
-            <div className="pf-home__kids-card">
-              <FiAward aria-hidden="true" />5 pull-ups
-            </div>
-            <div className="pf-home__kids-card">
-              <FiAward aria-hidden="true" />
-              20 bodyweight squats
-            </div>
-            <div className="pf-home__kids-card">
-              <FiAward aria-hidden="true" />
-              100m running challenge
+          <div className="pf-home__kids-inner">
+            <h2 className="pf-home__section-title">
+              <FiHeart aria-hidden="true" />
+              Junior Competition (12+)
+            </h2>
+            <p className="pf-home__kids-fee">
+              Registration fee: EGP {programs?.kids.fee} · Built for confidence,
+              movement, and fun.
+            </p>
+            <div className="pf-home__kids-grid">
+              {programs?.kids.final.map((item) => (
+                <div className="pf-home__kids-card" key={item}>
+                  <FiAward aria-hidden="true" />
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
-        </div>
         </div>
       </section>
 
@@ -239,7 +236,7 @@ function HomePage() {
           <p className="pf-home__registration-status">Registration Is Live</p>
           <h2>Secure Your Spot Before Categories Fill Up</h2>
           <p>
-            Registration is currently open for Men and Women (18+) and Kids
+            Registration is currently open for Men and Women (18+) and Junior
             (12+). Complete your form now to reserve your place in the
             competition lineup.
           </p>

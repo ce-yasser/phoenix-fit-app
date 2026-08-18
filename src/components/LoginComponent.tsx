@@ -11,6 +11,7 @@ import {
   useSetUserData,
 } from "@store/hooks/userHooks";
 import { getUserData } from "@services/userService";
+import { AxiosError } from "axios";
 type Step = "email" | "otp" | "register";
 
 const LoginComponent: React.FC = () => {
@@ -64,7 +65,11 @@ const LoginComponent: React.FC = () => {
     try {
       await requestOtpForCurrentEmail();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof AxiosError
+          ? err?.response?.data?.message
+          : "An error occurred",
+      );
     } finally {
       setLoading(false);
     }
@@ -77,7 +82,11 @@ const LoginComponent: React.FC = () => {
     try {
       await requestOtpForCurrentEmail();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to resend OTP");
+      setError(
+        err instanceof AxiosError
+          ? err?.response?.data?.message
+          : "Failed to resend OTP",
+      );
     } finally {
       setLoading(false);
     }
@@ -109,7 +118,11 @@ const LoginComponent: React.FC = () => {
         setStep("register");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof AxiosError
+          ? err?.response?.data?.message
+          : "An error occurred",
+      );
     } finally {
       setLoading(false);
     }
@@ -139,7 +152,11 @@ const LoginComponent: React.FC = () => {
         setError("Registration failed");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An error occurred");
+      setError(
+        err instanceof AxiosError
+          ? err?.response?.data?.message
+          : "An error occurred",
+      );
     } finally {
       setLoading(false);
     }

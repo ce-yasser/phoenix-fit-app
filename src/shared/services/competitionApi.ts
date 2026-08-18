@@ -2,10 +2,9 @@ import axiosClient from "@interceptors/axiosClient";
 import * as I from "@interfaces";
 import { Endpoints } from "@constants/endpoints";
 
-
 export const submitRegistration = async (
   fields: I.August2026DtoInterface,
-): Promise<void> => {
+): Promise<I.CompetitionResponse> => {
   const formData = new FormData();
   formData.append("gender", fields.gender);
   formData.append("name", fields.name);
@@ -14,17 +13,20 @@ export const submitRegistration = async (
   formData.append("age", String(fields.age));
   formData.append("phone", fields.phone);
 
-  // return await axiosClient.post(Endpoints.competition_august_2026, formData);
+  const response = await axiosClient.post<{ data: I.CompetitionResponse }>(
+    Endpoints.competition_august_2026,
+    formData,
+  );
 
-  // catch axios error and return message from response
-  try {
-    return (await axiosClient.post(Endpoints.competition_august_2026, formData));
-  } catch (error: any) {
-    console.log('error', error);
-    // if (error.response && error.response && error.response.message) {
-    //   throw new Error(error.response.message);
-    // } else {
-    //   throw new Error("An unknown error occurred.");
-    // }
-  }
+  return response.data.data;
+};
+
+export const getCompetitionDetails = async (
+  competitionId: string,
+): Promise<I.CompetitionResponse> => {
+  const response = await axiosClient.get<{ data: I.CompetitionResponse }>(
+    `${Endpoints.competition_august_2026}/${competitionId}`,
+  );
+
+  return response.data.data;
 };

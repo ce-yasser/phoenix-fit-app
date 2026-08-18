@@ -11,7 +11,7 @@ import {
 function HeaderComponent() {
   const location = useLocation();
   const navigate = useNavigate();
-  const isHomePage = location.pathname === "/";
+  const isTransparent = ["/", "/competition"].includes(location.pathname);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -59,7 +59,8 @@ function HeaderComponent() {
     logout();
   };
 
-  const headerStateClass = isHomePage && !isScrolled ? "is-transparent" : "is-scrolled";
+  const headerStateClass =
+    isTransparent && !isScrolled ? "is-transparent" : "is-scrolled";
 
   return (
     <header className={`pf-header ${headerStateClass}`}>
