@@ -1,11 +1,5 @@
 @use '../../abstracts' as *;
 .pf-instapay {
-    padding: pf-rem(24);
-    margin-bottom: pf-rem(24);
-    background-color: var(--pf-color-surface-raised);
-    border: 1px solid var(--pf-color-border);
-    border-radius: var(--pf-radius-lg);
-
     h3 {
       font-size: pf-rem(18);
       margin-bottom: pf-rem(12);

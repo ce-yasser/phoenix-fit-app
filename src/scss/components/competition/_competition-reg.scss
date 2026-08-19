@@ -3,4 +3,12 @@
 .pf-reg {
   margin-top: 28px;
   margin-bottom: 28px;
+
+  &__card {
+    padding: pf-rem(24);
+    margin-bottom: pf-rem(24);
+    background-color: var(--pf-color-surface-raised);
+    border: 1px solid var(--pf-color-border);
+    border-radius: var(--pf-radius-lg);
+  }
 }

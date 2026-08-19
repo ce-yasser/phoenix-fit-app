@@ -13,7 +13,7 @@ function CompetitionPaymentInfoComponent({ fee }: { fee: number }) {
     }
   };
   return (
-    <section className="pf-instapay">
+    <section className="pf-instapay pf-reg__card">
       <h3>Registration Fee</h3>
       <p className="pf-instapay__fee">{fee} EGP</p>
       <p className="pf-instapay__fee-note">
