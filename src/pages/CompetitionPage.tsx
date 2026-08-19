@@ -7,10 +7,10 @@ import {
   useProgramsData,
   useProgramsLoading,
 } from "@store/hooks/programsHooks";
-import type { August2026DtoInterface, ProgramCategory } from "@interfaces";
+import type { August2026Interface, ProgramCategory } from "@interfaces";
 import { AxiosError } from "axios";
 
-const initialFormData: August2026DtoInterface = {
+const initialFormData: August2026Interface = {
   gender: "male",
   name: "",
   category: "strength",
@@ -20,7 +20,7 @@ const initialFormData: August2026DtoInterface = {
 };
 
 const genderOptions: Array<{
-  value: August2026DtoInterface["gender"];
+  value: August2026Interface["gender"];
   label: string;
 }> = [
   { value: "male", label: "Male" },
@@ -28,7 +28,7 @@ const genderOptions: Array<{
 ];
 
 const categoryOptions: Array<{
-  value: August2026DtoInterface["category"];
+  value: August2026Interface["category"];
   label: string;
 }> = [
   { value: "strength", label: "Strength" },
@@ -37,7 +37,7 @@ const categoryOptions: Array<{
 ];
 
 const levelOptions: Array<{
-  value: August2026DtoInterface["level"];
+  value: August2026Interface["level"];
   label: string;
 }> = [
   { value: "intermediate", label: "Intermediate" },
@@ -51,7 +51,7 @@ function CompetitionPage() {
   const loading = useProgramsLoading();
   const fetchPrograms = useFetchPrograms();
   const [formData, setFormData] =
-    useState<August2026DtoInterface>(initialFormData);
+    useState<August2026Interface>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -109,17 +109,17 @@ function CompetitionPage() {
       }
 
       if (name === "gender") {
-        next.gender = value as August2026DtoInterface["gender"];
+        next.gender = value as August2026Interface["gender"];
         return next;
       }
 
       if (name === "category") {
-        next.category = value as August2026DtoInterface["category"];
+        next.category = value as August2026Interface["category"];
         return next;
       }
 
       if (name === "level") {
-        next.level = value as August2026DtoInterface["level"];
+        next.level = value as August2026Interface["level"];
         return next;
       }
 

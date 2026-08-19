@@ -1,7 +1,7 @@
 export const competitionStatusEnum = {
   created: 'CREATED',
   pending: 'PENDING',
-  approved: 'CONFIRMED',
+  confirmed: 'CONFIRMED',
   rejected: 'REJECTED',
   cancelled: 'CANCELED',
 } as const;
@@ -14,11 +14,25 @@ export interface CompetitionResponse {
   status: CompetitionStatus;
 }
 
-export interface August2026DtoInterface {
+export interface August2026Interface {
   gender: 'male' | 'female';
   name: string;
   category: 'strength' | 'endurance' | 'flexibility';
   level: 'intermediate' | 'advanced' | 'elite';
   age: number;
   phone: string;
+}
+export interface CompetitionData {
+  id: string;
+  competition: string;
+  userId: number;
+  data: August2026Interface;
+  status: CompetitionStatus;
+  history: {
+    time: string;
+    value: string;
+  }[];
+  payment: string[];
+  submittedAt: string;
+  updatedAt: string;
 }

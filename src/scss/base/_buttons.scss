@@ -1,0 +1,193 @@
+// ==========================================================================
+// PF · Buttons
+// ==========================================================================
+
+@use '../abstracts' as *;
+
+.pf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: pf-rem(8);
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: var(--pf-radius-md);
+  padding: pf-rem(12) pf-rem(24);
+  font-family: var(--pf-font-family-heading);
+  font-size: pf-rem(15);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color var(--pf-transition-base),
+    border-color var(--pf-transition-base),
+    color var(--pf-transition-base),
+    box-shadow var(--pf-transition-base),
+    transform 0.1s ease;
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--pf-color-primary);
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &.pf-is-disabled,
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.5;
+    transform: none;
+    box-shadow: none;
+  }
+
+  svg,
+  .pf-btn-icon {
+    width: pf-rem(18);
+    height: pf-rem(18);
+    flex-shrink: 0;
+  }
+}
+
+// --------------------------------------------------------------------
+// Variants
+// --------------------------------------------------------------------
+
+.pf-btn-primary {
+  background-color: var(--pf-color-primary);
+  border-color: var(--pf-color-primary);
+  color: var(--pf-color-text-inverse);
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    background-color: var(--pf-color-primary-hover);
+    border-color: var(--pf-color-primary-hover);
+  }
+}
+
+.pf-btn-secondary {
+  background-color: var(--pf-color-secondary);
+  border-color: var(--pf-color-secondary);
+  color: var(--pf-color-text);
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    background-color: var(--pf-color-secondary-hover);
+    border-color: var(--pf-color-secondary-hover);
+  }
+}
+
+.pf-btn-outline-primary {
+  background-color: transparent;
+  border-color: var(--pf-color-primary);
+  color: var(--pf-color-primary);
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    background-color: var(--pf-color-primary);
+    color: var(--pf-color-text-inverse);
+  }
+}
+
+.pf-btn-outline-secondary {
+  background-color: transparent;
+  border-color: var(--pf-color-border);
+  color: var(--pf-color-text);
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    background-color: var(--pf-color-surface-raised);
+    border-color: var(--pf-color-text-muted);
+  }
+}
+
+.pf-btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--pf-color-text);
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    background-color: var(--pf-color-surface-raised);
+  }
+}
+
+.pf-btn-link {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--pf-color-primary);
+  padding-left: 0;
+  padding-right: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    color: var(--pf-color-primary-hover);
+  }
+}
+
+.pf-btn-danger {
+  background-color: var(--pf-color-danger);
+  border-color: var(--pf-color-danger);
+  color: var(--pf-color-text);
+
+  &:hover:not(:disabled):not(.pf-is-disabled) {
+    filter: brightness(0.9);
+  }
+}
+
+// --------------------------------------------------------------------
+// Sizes
+// --------------------------------------------------------------------
+
+.pf-btn-sm {
+  padding: pf-rem(8) pf-rem(16);
+  font-size: pf-rem(13);
+}
+
+.pf-btn-lg {
+  padding: pf-rem(16) pf-rem(32);
+  font-size: pf-rem(17);
+}
+
+.pf-btn-block {
+  display: flex;
+  width: 100%;
+}
+
+// Round icon-only button
+.pf-btn-icon-only {
+  padding: pf-rem(10);
+  border-radius: 50%;
+
+  svg,
+  .pf-btn-icon {
+    margin: 0;
+  }
+}
+
+// --------------------------------------------------------------------
+// Button group
+// --------------------------------------------------------------------
+
+.pf-btn-group {
+  display: inline-flex;
+
+  .pf-btn {
+    border-radius: 0;
+    margin-left: -1px;
+
+    &:first-child {
+      margin-left: 0;
+      border-top-left-radius: var(--pf-radius-md);
+      border-bottom-left-radius: var(--pf-radius-md);
+    }
+
+    &:last-child {
+      border-top-right-radius: var(--pf-radius-md);
+      border-bottom-right-radius: var(--pf-radius-md);
+    }
+  }
+}

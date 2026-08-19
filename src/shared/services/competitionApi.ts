@@ -3,7 +3,7 @@ import * as I from "@interfaces";
 import { Endpoints } from "@constants/endpoints";
 
 export const submitRegistration = async (
-  fields: I.August2026DtoInterface,
+  fields: I.August2026Interface,
 ): Promise<I.CompetitionResponse> => {
   const formData = new FormData();
   formData.append("gender", fields.gender);
@@ -23,9 +23,41 @@ export const submitRegistration = async (
 
 export const getCompetitionDetails = async (
   competitionId: string,
-): Promise<I.CompetitionResponse> => {
-  const response = await axiosClient.get<{ data: I.CompetitionResponse }>(
-    `${Endpoints.competition_august_2026}/${competitionId}`,
+): Promise<I.CompetitionData> => {
+  const response = await axiosClient.get<{ data: I.CompetitionData }>(
+    `${Endpoints.competition}/${competitionId}`,
+  );
+
+  console.log('response', response);
+  return response.data.data;
+};
+
+export const uploadCompetitionPayment = async (
+  competitionId: string,
+  file: File,
+): Promise<I.CompetitionData> => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await axiosClient.post<{ data: I.CompetitionData }>(
+    `${Endpoints.competition}/${competitionId}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    },
+  );
+
+  return response.data.data;
+};
+
+export const cancelCompetitionRegistration = async (
+  competitionId: string,
+): Promise<I.CompetitionData> => {
+  const response = await axiosClient.put<{ data: I.CompetitionData }>(
+    `${Endpoints.competition}/${competitionId}`,
+    { status: "CANCELED" },
   );
 
   return response.data.data;

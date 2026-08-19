@@ -7,6 +7,7 @@ import CompetitionPage from "@pages/CompetitionPage";
 import HeaderComponent from "@components/HeaderComponent";
 import FooterComponent from "@components/FooterComponent";
 import LoginComponent from "@components/LoginComponent";
+import CompetitionDetailPage from "@pages/CompetitionDetailPage";
 import {
   useIsLoggedIn,
   useShowAuth,
@@ -46,8 +47,9 @@ function AppLayout() {
           <Route element={<ProtectedRoute />}>
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/competition" element={<CompetitionPage />} />
+            <Route path="/competition/:id" element={<CompetitionDetailPage />} />
           </Route>
-          
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

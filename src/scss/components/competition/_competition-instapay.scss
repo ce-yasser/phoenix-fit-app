@@ -1,0 +1,85 @@
+@use '../../abstracts' as *;
+.pf-instapay {
+    padding: pf-rem(24);
+    margin-bottom: pf-rem(24);
+    background-color: var(--pf-color-surface-raised);
+    border: 1px solid var(--pf-color-border);
+    border-radius: var(--pf-radius-lg);
+
+    h3 {
+      font-size: pf-rem(18);
+      margin-bottom: pf-rem(12);
+    }
+
+  &__fee {
+    font-family: var(--pf-font-family-heading);
+    font-size: pf-rem(36);
+    color: var(--pf-color-primary);
+    margin-bottom: pf-rem(8);
+  }
+
+  &__fee-note {
+    font-size: pf-rem(14);
+    color: var(--pf-color-text-muted);
+    margin-bottom: pf-rem(20);
+  }
+
+  &__card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: pf-rem(16);
+    padding: pf-rem(16) pf-rem(20);
+    background-color: var(--pf-color-surface-alt);
+    border: 1px dashed var(--pf-color-border);
+    border-radius: var(--pf-radius-md);
+  }
+
+  &__copy {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: pf-rem(4);
+    flex: 1;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-size: pf-rem(12);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pf-color-text-muted);
+  }
+
+  &__value {
+    display: inline-flex;
+    align-items: center;
+    gap: pf-rem(6);
+    font-family: var(--pf-font-family-heading);
+    font-size: pf-rem(20);
+    letter-spacing: 0.03em;
+    color: var(--pf-color-text);
+  }
+
+  &__tooltip {
+    position: absolute;
+    top: calc(100% + pf-rem(8));
+    left: 0;
+    z-index: 2;
+    padding: pf-rem(6) pf-rem(8);
+    background: var(--pf-color-text);
+    color: var(--pf-color-surface-raised);
+    border-radius: pf-rem(6);
+    font-size: pf-rem(12);
+    line-height: 1;
+    pointer-events: none;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  &__pay-btn {
+    margin-left: auto;
+    width: auto;
+    white-space: nowrap;
+  }
+}
