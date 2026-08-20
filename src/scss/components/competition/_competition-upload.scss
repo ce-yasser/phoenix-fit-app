@@ -1,0 +1,49 @@
+@use '../../abstracts' as *;
+
+.pf-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: pf-rem(10);
+  padding: pf-rem(40) pf-rem(20);
+  background-color: var(--pf-color-surface-alt);
+  border: 1.5px dashed var(--pf-color-border);
+  border-radius: var(--pf-radius-lg);
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 0;
+  transition: border-color var(--pf-transition-base), background-color var(--pf-transition-base);
+
+  input[type='file'] {
+    display: none;
+  }
+
+  &:hover {
+    border-color: var(--pf-color-text-muted);
+  }
+
+  &--dragging {
+    border-color: var(--pf-color-primary);
+    background-color: rgba(var(--pf-color-primary-rgb), 0.06);
+  }
+
+  &__title {
+    font-size: pf-rem(15);
+    color: var(--pf-color-text);
+  }
+
+  &__filename {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: pf-rem(15);
+    font-weight: 600;
+    color: var(--pf-color-primary);
+  }
+
+  &__hint {
+    font-size: pf-rem(13);
+    color: var(--pf-color-text-muted);
+  }
+}

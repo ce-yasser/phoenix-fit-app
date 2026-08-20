@@ -1,9 +1,6 @@
 @use '../../abstracts' as *;
+
 .pf-instapay {
-    h3 {
-      font-size: pf-rem(18);
-      margin-bottom: pf-rem(12);
-    }
 
   &__fee {
     font-family: var(--pf-font-family-heading);

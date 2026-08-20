@@ -75,7 +75,7 @@ p {
   color: var(--pf-color-text);
   margin-bottom: 12px;
 
-  + p {
+  +p {
     margin-top: pf-rem(16);
   }
 }
@@ -128,4 +128,41 @@ a.pf-link {
     color: var(--pf-color-primary-hover);
     text-decoration: underline;
   }
+}
+
+.pf-text-lead {
+  font-size: pf-rem(20);
+  font-weight: 400;
+  color: var(--pf-color-text-muted);
+  line-height: 1.6;
+}
+
+.pf-text-small {
+  font-size: pf-rem(14);
+}
+
+.pf-text-muted {
+  color: var(--pf-color-text-muted);
+}
+
+.pf-text-primary {
+  color: var(--pf-color-primary);
+}
+
+.pf-text-secondary {
+  color: var(--pf-color-secondary);
+}
+
+.pf-text-accent {
+  color: var(--pf-color-accent);
+}
+
+.pf-eyebrow {
+  display: inline-block;
+  font-size: pf-rem(13);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--pf-color-primary);
+  margin-bottom: pf-rem(8);
 }

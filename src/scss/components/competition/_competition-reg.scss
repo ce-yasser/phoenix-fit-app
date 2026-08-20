@@ -10,5 +10,97 @@
     background-color: var(--pf-color-surface-raised);
     border: 1px solid var(--pf-color-border);
     border-radius: var(--pf-radius-lg);
+
+    h3 {
+      font-size: pf-rem(18);
+      margin-bottom: pf-rem(12);
+    }
   }
+
+  &__title {
+    margin-bottom: 12px;
+  }
+
+  .pf-text-lead {
+    text-transform: uppercase;
+  }
+
+  &__status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: pf-rem(12);
+    margin-bottom: pf-rem(32);
+  }
+
+  &__status-note {
+    font-size: pf-rem(13);
+    color: var(--pf-color-text-muted);
+  }
+
+  &__submit {
+    width: 100%;
+    margin-top: pf-rem(20);
+  }
+}
+
+.pf-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: pf-rem(8);
+  padding: pf-rem(6) pf-rem(14);
+  border-radius: pf-rem(999);
+  font-family: var(--pf-font-family-heading);
+  font-size: pf-rem(12);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  &__dot {
+    width: pf-rem(7);
+    height: pf-rem(7);
+    border-radius: 50%;
+  }
+
+  &--created {
+    background-color: rgba(var(--pf-color-primary-rgb), 0.12);
+    border: 1px solid rgba(var(--pf-color-primary-rgb), 0.4);
+    color: var(--pf-color-primary);
+
+    .pf-status-badge__dot {
+      background-color: var(--pf-color-primary);
+    }
+  }
+
+  &--pending {
+    background-color: rgba(var(--pf-color-accent-rgb), 0.12);
+    border: 1px solid rgba(var(--pf-color-accent-rgb), 0.4);
+    color: var(--pf-color-accent);
+
+    .pf-status-badge__dot {
+      background-color: var(--pf-color-accent);
+    }
+  }
+
+  &--confirmed {
+    background-color: rgba(34, 197, 94, 0.12);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: var(--pf-color-success);
+
+    .pf-status-badge__dot {
+      background-color: var(--pf-color-success);
+    }
+  }
+
+  &--canceled,
+  &--rejected {
+    background-color: rgba(var(--pf-color-danger-rgb), 0.12);
+    border: 1px solid rgba(var(--pf-color-danger-rgb), 0.4);
+    color: var(--pf-color-danger);
+
+    .pf-status-badge__dot {
+      background-color: var(--pf-color-danger);
+    }
+  }
+
 }

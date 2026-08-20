@@ -30,6 +30,7 @@
   // Color · Accent (golden flame highlight, used sparingly)
   // ------------------------------------------------------------------
   --pf-color-accent: #fbbf24;
+  --pf-color-accent-rgb: 251, 191, 36;
   --pf-color-accent-hover: #e4a915;
 
   // ------------------------------------------------------------------
@@ -53,6 +54,8 @@
   // ------------------------------------------------------------------
   --pf-color-success: #22c55e;
   --pf-color-danger: #ef4444;
+  --pf-color-danger-rgb: 239, 68, 68;
+  --pf-color-danger-hover: #dc2626;
   --pf-color-warning: var(--pf-color-accent);
 
   // ------------------------------------------------------------------
