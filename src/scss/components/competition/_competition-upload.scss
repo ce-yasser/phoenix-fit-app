@@ -1,5 +1,42 @@
 @use '../../abstracts' as *;
 
+.pf-upload-progress {
+  display: grid;
+  gap: pf-rem(8);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  margin-bottom: 0;
+  transition: opacity var(--pf-transition-base), max-height var(--pf-transition-base), margin-bottom var(--pf-transition-base);
+
+  &.is-visible {
+    opacity: 1;
+    max-height: pf-rem(80);
+    margin-bottom: pf-rem(16);
+  }
+
+  &__track {
+    width: 100%;
+    height: pf-rem(8);
+    background: rgba(var(--pf-color-primary-rgb), 0.12);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  &__bar {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--pf-color-primary), var(--pf-color-secondary));
+    transition: width var(--pf-transition-base);
+  }
+
+  small {
+    font-size: pf-rem(12);
+    color: var(--pf-color-text-muted);
+  }
+}
+
 .pf-upload {
   display: flex;
   flex-direction: column;

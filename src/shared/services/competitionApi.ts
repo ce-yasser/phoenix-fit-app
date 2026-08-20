@@ -35,9 +35,10 @@ export const getCompetitionDetails = async (
 export const uploadCompetitionPayment = async (
   competitionId: string,
   file: File,
+  onUploadProgress?: (percent: number) => void,
 ): Promise<I.CompetitionData> => {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("payment", file);
 
   const response = await axiosClient.post<{ data: I.CompetitionData }>(
     `${Endpoints.competition}/${competitionId}`,
@@ -45,6 +46,17 @@ export const uploadCompetitionPayment = async (
     {
       headers: {
         "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: (progressEvent) => {
+        if (!progressEvent.total) {
+          return;
+        }
+
+        const percent = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total,
+        );
+
+        onUploadProgress?.(percent);
       },
     },
   );

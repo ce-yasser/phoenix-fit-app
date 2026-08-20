@@ -71,6 +71,7 @@ function CompetitionDetailPage() {
         <CompetitionDetailComponent
           competition={competition}
           selectedProgram={selectedProgram}
+          setCompetition={setCompetition}
         />
         <CompetitionSummaryComponent
           details={competition.data}
